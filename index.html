@@ -3,118 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aplikasi Hafalan Vocab</title>
+    <title>Kamus Hafalan Vocab A-Z - Ari Studio</title>
 </head>
-<body style="font-family:sans-serif; text-align:center; background:#f4f7f6; padding-top:40px; margin:0;">
-    <h1>Aplikasi Hafalan Vocab Ari Studio</h1>
-    <p style="color:#666; padding:0 10px;">Ketuk kartu untuk melihat arti, klik tombol di bawah untuk ganti kata.</p>
-    
-    <!-- Info Indeks Kata -->
-    <div id="counter" style="font-size: 16px; color: #555; margin-bottom: 10px; font-weight: bold;">Kata 1 dari 25</div>
-
-    <!-- Kartu Flashcard -->
-    <div id="card" style="border:2px solid #007bff; border-radius:15px; padding:60px 20px; width:280px; margin:20px auto; font-size:32px; font-weight:bold; cursor:pointer; background:#ffffff; box-shadow:0 6px 12px rgba(0,0,0,0.1); transition: 0.2s; min-height: 80px; display: flex; align-items: center; justify-content: center;" onclick="flipCard()">
-        Loading...
+<body style="font-family:sans-serif; text-align:center; background:#f4f7f6; margin:0; padding-bottom: 50px;">
+    <div style="background: #007bff; padding: 25px 10px; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <h1 style="margin: 0; font-size: 24px; font-weight: bold;">KAMUS HAFALAN VOCABULARY</h1>
+        <h2 style="margin: 5px 0 0 0; font-size: 16px; font-weight: normal; opacity: 0.9;">Ari Studio - Database A-Z Lengkap</h2>
     </div>
-    
-    <!-- Tombol Navigasi -->
-    <div style="margin-top: 25px;">
-        <button onclick="prevWord()" style="background:#6c757d; color:white; border:none; padding:12px 20px; font-size:16px; font-weight:bold; border-radius:8px; cursor:pointer; margin-right:10px; box-shadow:0 4px 6px rgba(0,0,0,0.1);">
-            🡨 KEMBALI
-        </button>
-        <button onclick="nextWord()" style="background:#28a745; color:white; border:none; padding:12px 24px; font-size:16px; font-weight:bold; border-radius:8px; cursor:pointer; box-shadow:0 4px 6px rgba(0,0,0,0.1);">
-            LANJUT ➔
-        </button>
+    <div style="margin: 20px auto; width: 90%; max-width: 400px; text-align: left;">
+        <label for="alphabetSelect" style="font-weight: bold; color: #555; display: block; margin-bottom: 5px;">Pilih Awalan Huruf:</label>
+        <select id="alphabetSelect" onchange="changeLetter()" style="width: 100%; padding: 12px; font-size: 16px; border-radius: 8px; border: 2px solid #007bff; background: white; font-weight: bold; color: #333;">
+            <option value="A">Huruf A</option><option value="B">Huruf B</option><option value="C">Huruf C</option><option value="D">Huruf D</option><option value="E">Huruf E</option><option value="F">Huruf F</option><option value="G">Huruf G</option><option value="H">Huruf H</option><option value="I">Huruf I</option><option value="J">Huruf J</option><option value="K">Huruf K</option><option value="L">Huruf L</option><option value="M">Huruf M</option><option value="O">Huruf O</option><option value="P">Huruf P</option><option value="Q">Huruf Q</option><option value="R">Huruf R</option><option value="S">Huruf S</option><option value="T">Huruf T</option><option value="U">Huruf U</option><option value="V">Huruf V</option><option value="W">Huruf W</option><option value="X">Huruf X</option><option value="Y">Huruf Y</option><option value="Z">Huruf Z</option>
+        </select>
     </div>
-    
+    <div id="counter" style="font-size: 16px; color: #666; margin: 15px 0 5px 0; font-weight: bold;">Loading...</div>
+    <div id="card" style="border: 2px solid #007bff; border-radius: 15px; padding: 50px 20px; width: 85%; max-width: 300px; margin: 15px auto; font-size: 30px; font-weight: bold; cursor: pointer; background: #ffffff; box-shadow: 0 6px 12px rgba(0,0,0,0.1); min-height: 140px; display: flex; flex-direction: column; align-items: center; justify-content: center;" onclick="flipCard()">
+        <div id="wordText">Loading...</div>
+        <div id="phonemicText" style="font-size: 16px; color: #666; font-weight: normal; margin-top: 10px; font-style: italic;"></div>
+    </div>
+    <p style="color:#888; font-size: 14px; margin-bottom: 20px;">💡 Ketuk kartu untuk melihat arti bahasa Indonesia</p>
+    <div>
+        <button onclick="prevWord()" style="background:#6c757d; color:white; border:none; padding:12px 20px; font-size:16px; font-weight:bold; border-radius:8px; cursor:pointer; margin-right:10px; box-shadow:0 4px 6px rgba(0,0,0,0.1);">🡨 KEMBALI</button>
+        <button onclick="nextWord()" style="background:#28a745; color:white; border:none; padding:12px 24px; font-size:16px; font-weight:bold; border-radius:8px; cursor:pointer; box-shadow:0 4px 6px rgba(0,0,0,0.1);">LANJUT ➔</button>
+    </div>
     <div style="margin-top: 20px;">
-        <button onclick="shuffleWords()" style="background:#ffc107; color:#212529; border:none; padding:8px 16px; font-size:14px; font-weight:bold; border-radius:6px; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.1);">
-            🔀 ACAK URUTAN KATA
-        </button>
+        <button onclick="shuffleWords()" style="background:#ffc107; color:#212529; border:none; padding:10px 18px; font-size:14px; font-weight:bold; border-radius:6px; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.1);">🔀 ACAK URUTAN HURUF INI</button>
     </div>
-
-    <script>
-        // DATABASE KOSAKATA ANDA (Sudah diperbanyak menjadi 25 kata penting)
-        let daftarKata = [
-            { inggris: "Achieve", indonesia: "Mencapai / Meraih" },
-            { inggris: "Anxious", indonesia: "Cemas / Gelisah" },
-            { inggris: "Challenge", indonesia: "Tantangan" },
-            { inggris: "Determine", indonesia: "Menentukan / Menetapkan" },
-            { inggris: "Encourage", indonesia: "Mendorong / Menyemangati" },
-            { inggris: "Improve", indonesia: "Meningkatkan / Memperbaiki" },
-            { inggris: "Opportunity", indonesia: "Kesempatan / Peluang" },
-            { inggris: "Reduce", indonesia: "Mengurangi" },
-            { inggris: "Success", indonesia: "Keberhasilan / Kesuksesan" },
-            { inggris: "Vocabulary", indonesia: "Kosakata" },
-            { inggris: "Brave", indonesia: "Berani" },
-            { inggris: "Confidence", indonesia: "Kepercayaan Diri" },
-            { inggris: "Dangerous", indonesia: "Berbahaya" },
-            { inggris: "Experience", indonesia: "Pengalaman" },
-            { inggris: "Gorgeous", indonesia: "Sangat Cantik / Indah" },
-            { inggris: "Healthy", indonesia: "Sehat" },
-            { inggris: "Imagine", indonesia: "Membayangkan" },
-            { inggris: "Journey", indonesia: "Perjalanan" },
-            { inggris: "Knowledge", indonesia: "Pengetahuan" },
-            { inggris: "Lazy", indonesia: "Malas" },
-            { inggris: "Manage", indonesia: "Mengelola / Mengatur" },
-            { inggris: "Notice", indonesia: "Memperhatikan / Pemberitahuan" },
-            { inggris: "Patient", indonesia: "Sabar / Pasien" },
-            { inggris: "Responsible", indonesia: "Bertanggung Jawab" },
-            { inggris: "Understand", indonesia: "Mengerti / Memahami" }
-        ];
-
-        let indeksSekarang = 0;
-        let isTerjemahan = false;
-
-        function updateTampilan() {
-            const card = document.getElementById("card");
-            const counter = document.getElementById("counter");
-            
-            card.innerText = daftarKata[indeksSekarang].inggris;
-            card.style.background = "#ffffff";
-            card.style.color = "#333333";
-            isTerjemahan = false;
-            
-            counter.innerText = `Kata ${indeksSekarang + 1} dari ${daftarKata.length}`;
-        }
-
-        function flipCard() {
-            const card = document.getElementById("card");
-            if (!isTerjemahan) {
-                card.innerText = daftarKata[indeksSekarang].indonesia;
-                card.style.background = "#e6f2ff";
-                card.style.color = "#007bff";
-                isTerjemahan = true;
-            } else {
-                card.innerText = daftarKata[indeksSekarang].inggris;
-                card.style.background = "#ffffff";
-                card.style.color = "#333333";
-                isTerjemahan = false;
-            }
-        }
-
-        function nextWord() {
-            indeksSekarang = (indeksSekarang + 1) % daftarKata.length;
-            updateTampilan();
-        }
-
-        function prevWord() {
-            indeksSekarang = (indeksSekarang - 1 + daftarKata.length) % daftarKata.length;
-            updateTampilan();
-        }
-
-        function shuffleWords() {
-            for (let i = daftarKata.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [daftarKata[i], daftarKata[j]] = [daftarKata[j], daftarKata[i]];
-            }
-            indeksSekarang = 0;
-            updateTampilan();
-            alert("Daftar kata berhasil diacak!");
-        }
-
-        // Jalankan tampilan pertama kali saat web dibuka
-        updateTampilan();
-    </script>
-</body>
-</html>
