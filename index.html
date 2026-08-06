@@ -1,2 +1,67 @@
-<html><head><title>Vocab App</title></head><body style='font-family:sans-serif; text-align:center;'><h1>Aplikasi Hafalan Vocab Ari Studio</h1><div id='card' style='border:2px solid #007bff; border-radius:10px; padding:30px; width:200px; margin:20px auto; font-size:24px; font-weight:bold; cursor:pointer; background:#f0f8ff;' onclick='flip()'>Book</div><script>function flip(){const c=document.getElementById("card"); c.innerText=c.innerText==="Book"?"Buku":"Book";}</script></body></html>
- 
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Hafalan Vocab</title>
+</head>
+<body style="font-family:sans-serif; text-align:center; background:#f4f7f6; padding-top:40px; margin:0;">
+    <h1>Aplikasi Hafalan Vocab Ari Studio</h1>
+    <p style="color:#666;">Ketuk kartu untuk melihat arti, lalu klik tombol untuk ganti kata.</p>
+    
+    <!-- Kartu Flashcard -->
+    <div id="card" style="border:2px solid #007bff; border-radius:15px; padding:50px 20px; width:260px; margin:30px auto; font-size:32px; font-weight:bold; cursor:pointer; background:#ffffff; box-shadow:0 6px 12px rgba(0,0,0,0.1); transition: 0.2s;" onclick="flipCard()">
+        Book
+    </div>
+    
+    <!-- Tombol Navigasi -->
+    <button onclick="nextWord()" style="background:#28a745; color:white; border:none; padding:12px 24px; font-size:18px; font-weight:bold; border-radius:8px; cursor:pointer; box-shadow:0 4px 6px rgba(0,0,0,0.1);">
+        KATA BERIKUTNYA ➔
+    </button>
+
+    <script>
+        // DAFTAR KOSAKATA ANDA (Bisa ditambah sebanyak-banyaknya di sini)
+        const daftarKata = [
+            { inggris: "Book", indonesia: "Buku" },
+            { inggris: "Apple", indonesia: "Apel" },
+            { inggris: "Water", indonesia: "Air" },
+            { inggris: "House", indonesia: "Rumah" },
+            { inggris: "Learn", indonesia: "Belajar" },
+            { inggris: "Always", indonesia: "Selalu" },
+            { inggris: "Beautiful", indonesia: "Cantik" }
+        ];
+
+        let indeksSekarang = 0;
+        let isTerjemahan = false;
+
+        function updateTampilan() {
+            const card = document.getElementById("card");
+            card.innerText = daftarKata[indeksSekarang].inggris;
+            card.style.background = "#ffffff";
+            card.style.color = "#333333";
+            isTerjemahan = false;
+        }
+
+        function flipCard() {
+            const card = document.getElementById("card");
+            if (!isTerjemahan) {
+                card.innerText = daftarKata[indeksSekarang].indonesia;
+                card.style.background = "#e6f2ff";
+                card.style.color = "#007bff";
+                isTerjemahan = true;
+            } else {
+                card.innerText = daftarKata[indeksSekarang].inggris;
+                card.style.background = "#ffffff";
+                card.style.color = "#333333";
+                isTerjemahan = false;
+            }
+        }
+
+        function nextWord() {
+            // Mengacak ke kata berikutnya secara berurutan
+            indeksSekarang = (indeksSekarang + 1) % daftarKata.length;
+            updateTampilan();
+        }
+    </script>
+</body>
+</html>
