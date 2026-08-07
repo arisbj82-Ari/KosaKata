@@ -3,17 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kamus Hafalan Vocab - Ari Studio</title>
+    <title>Kamus Hafalan Vocab Raksasa - Ari Studio</title>
 </head>
 <body style="font-family:sans-serif; text-align:center; background:#f4f7f6; padding-top:20px; margin:0; padding-bottom: 50px;">
 
     <!-- Judul Header -->
     <div style="background: #28a745; padding: 15px; color: white; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-        <h1 style="margin: 0; font-size: 22px;">APLIKASI HAFALAN VOCAB ARI</h1>
+        <h1 style="margin: 0; font-size: 22px;">KAMUS VOCAB RAKSASA ARI STUDIO</h1>
+    </div>
+
+    <!-- Pilihan Alfabet Folder (A-Z) -->
+    <div style="margin: 15px auto; width: 280px; text-align: left;">
+        <label style="font-weight: bold; color: #333; display: block; margin-bottom: 5px; font-size: 14px;">Pilih Awalan Huruf:</label>
+        <select id="alphabetSelect" onchange="gantiFolderAbjad()" style="width: 100%; padding: 10px; font-size: 16px; border-radius: 8px; border: 2px solid #28a745; background: white; font-weight: bold; color: #333; cursor: pointer;">
+            <option value="A">Huruf A</option><option value="B">Huruf B</option><option value="C">Huruf C</option><option value="D">Huruf D</option><option value="E">Huruf E</option><option value="F">Huruf F</option><option value="G">Huruf G</option><option value="H">Huruf H</option><option value="I">Huruf I</option><option value="J">Huruf J</option><option value="K">Huruf K</option><option value="L">Huruf L</option><option value="M">Huruf M</option><option value="N">Huruf N</option><option value="O">Huruf O</option><option value="P">Huruf P</option><option value="Q">Huruf Q</option><option value="R">Huruf R</option><option value="S">Huruf S</option><option value="T">Huruf T</option><option value="U">Huruf U</option><option value="V">Huruf V</option><option value="W">Huruf W</option><option value="X">Huruf X</option><option value="Y">Huruf Y</option><option value="Z">Huruf Z</option>
+        </select>
     </div>
 
     <!-- Indikator Jumlah Kata -->
-    <div id="counter" style="font-size: 16px; color: #666; font-weight: bold; margin-bottom: 10px;">Loading...</div>
+    <div id="counter" style="font-size: 15px; color: #666; font-weight: bold; margin-bottom: 10px;">Loading...</div>
 
     <!-- Kotak Kartu Hafalan Utama -->
     <div onclick="tukarTampilan()" style="border: 3px solid #28a745; border-radius: 12px; padding: 35px 10px; width: 270px; margin: 15px auto; background: white; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer;">
@@ -29,7 +37,7 @@
         </button>
     </div>
 
-    <!-- ==================== FITUR BARU: PANEL LATIHAN MENULIS ==================== -->
+    <!-- Panel Latihan Koreksi Penulisan -->
     <div style="background: #ffffff; border: 2px solid #28a745; border-radius: 10px; width: 270px; margin: 15px auto; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
         <label style="font-weight: bold; font-size: 14px; color: #333; display: block; margin-bottom: 8px;">✍️ LATIHAN KOREKSI PENULISAN:</label>
         <input type="text" id="kolomKetik" placeholder="Ketik kata Inggrisnya di sini..." style="width: 90%; padding: 10px; font-size: 16px; border: 2px solid #ccc; border-radius: 6px; text-align: center;">
@@ -39,108 +47,95 @@
         <div id="hasilPeriksa" style="margin-top: 10px; font-weight: bold; font-size: 14px;"></div>
     </div>
 
-    <!-- Tombol Navigasi Kembali / Lanjut -->
+    <!-- Tombol Navigasi -->
     <div style="margin-top: 20px;">
         <button onclick="kataSebelumnya()" style="background:#6c757d; color:white; border:none; padding:12px 20px; font-size:16px; font-weight:bold; border-radius:8px; cursor:pointer; margin-right:10px;">🡨 KEMBALI</button>
         <button onclick="kataBerikutnya()" style="background:#28a745; color:white; border:none; padding:12px 24px; font-size:16px; font-weight:bold; border-radius:8px; cursor:pointer;">LANJUT ➔</button>
     </div>
 
     <script>
-        // PANGKALAN DATA KOSAKATA PREMIUM (SANGAT LENGKAP & STABIL)
-        let kumpulanKata = [
-            { inggris: "Book", baca: "buk", indonesia: "Buku" },
-            { inggris: "Table", baca: "teibl", indonesia: "Meja" },
-            { inggris: "Chair", baca: "cer", indonesia: "Kursi" },
-            { inggris: "House", baca: "haus", indonesia: "Rumah" },
-            { inggris: "Water", baca: "woter", indonesia: "Air" },
-            { inggris: "Achieve", baca: "aciv", indonesia: "Mencapai / Meraih" },
-            { inggris: "Anxious", baca: "anksyes", indonesia: "Cemas / Gelisah" },
-            { inggris: "Challenge", baca: "celenj", indonesia: "Tantangan" },
-            { inggris: "Determine", baca: "ditermin", indonesia: "Menentukan" },
-            { inggris: "Encourage", baca: "enkaridj", indonesia: "Menyemangati" },
-            { inggris: "Improve", baca: "impruf", indonesia: "Meningkatkan" },
-            { inggris: "Opportunity", baca: "opertuniti", indonesia: "Kesempatan" },
-            { inggris: "Reduce", baca: "ridjus", indonesia: "Mengurangi" },
-            { inggris: "Success", baca: "sakses", indonesia: "Keberhasilan" },
-            { inggris: "Brave", baca: "breif", indonesia: "Berani" },
-            { inggris: "Confidence", baca: "konfidens", indonesia: "Kepercayaan diri" },
-            { inggris: "Dangerous", baca: "deinjeres", indonesia: "Berbahaya" },
-            { inggris: "Experience", baca: "ekspiriens", indonesia: "Pengalaman" },
-            { inggris: "Gorgeous", baca: "gorjes", indonesia: "Sangat cantik" },
-            { inggris: "Healthy", baca: "helsi", indonesia: "Sehat" },
-            { inggris: "Imagine", baca: "imejin", indonesia: "Membayangkan" },
-            { inggris: "Journey", baca: "jerni", indonesia: "Perjalanan" },
-            { inggris: "Knowledge", baca: "nolej", indonesia: "Pengetahuan" },
-            { inggris: "Lazy", baca: "leizi", indonesia: "Malas" },
-            { inggris: "Manage", baca: "menedj", indonesia: "Mengelola" },
-            { inggris: "Patient", baca: "peisen", indonesia: "Sabar" },
-            { inggris: "Responsible", baca: "risponsibl", indonesia: "Bertanggung jawab" },
-            { inggris: "Understand", baca: "andersten", indonesia: "Memahami" },
-            { inggris: "Vocabulary", baca: "vokebjuleri", indonesia: "Kosakata" },
-            { inggris: "Important", baca: "importen", indonesia: "Penting" }
-        ];
-
-        let urutan = 0; 
-        let tampilInggris = true;
-
-        const kata = document.getElementById("tulisanKata"); 
-        const caraBaca = document.getElementById("caraBaca"); 
-        const petunjuk = document.getElementById("petunjuk"); 
-        const counter = document.getElementById("counter");
-        const kolomKetik = document.getElementById("kolomKetik");
-        const hasilPeriksa = document.getElementById("hasilPeriksa");
-
-        function segar() {
-            if (tampilInggris) {
-                kata.innerText = kumpulanKata[urutan].inggris;
-                caraBaca.innerText = "Cara baca: " + kumpulanKata[urutan].baca;
-                petunjuk.innerText = "(Bahasa Inggris - Ketuk untuk Arti)";
-            } else {
-                kata.innerText = kumpulanKata[urutan].indonesia;
-                caraBaca.innerText = "Arti Kata";
-                petunjuk.innerText = "(Bahasa Indonesia - Ketuk untuk Inggris)";
-            }
-            counter.innerText = `Kata ${urutan + 1} dari ${kumpulanKata.length}`;
-            
-            // Bersihkan kolom menulis setiap ganti kata
-            kolomKetik.value = "";
-            hasilPeriksa.innerText = "";
-            kolomKetik.style.borderColor = "#ccc";
-        }
-
-        function tukarTampilan() { tampilInggris = !tampilInggris; segar(); }
-        function kataBerikutnya() { urutan = (urutan + 1) % kumpulanKata.length; tampilInggris = true; segar(); }
-        function kataSebelumnya() { urutan = (urutan - 1 + kumpulanKata.length) % kumpulanKata.length; tampilInggris = true; segar(); }
-        
-        function putarAudio(event) {
-            event.stopPropagation();
-            let suara = new SpeechSynthesisUtterance(kumpulanKata[urutan].inggris);
-            suara.lang = 'en-US'; suara.rate = 0.8; window.speechSynthesis.speak(suara);
-        }
-
-        // FUNGSI UTAMA KOREKSI PENULISAN
-        function periksaTulisan() {
-            let jawabanUser = kolomKetik.value.trim().toLowerCase();
-            let jawabanBenar = kumpulanKata[urutan].inggris.toLowerCase();
-            
-            if (jawabanUser === "") {
-                hasilPeriksa.innerText = "⚠️ Harap isi/ketik dulu sebelum memeriksa!";
-                hasilPeriksa.style.color = "#ffc107";
-                return;
-            }
-
-            if (jawabanUser === jawabanBenar) {
-                hasilPeriksa.innerText = "✅ Hebat! Tulisan ejaan Anda 100% Benar!";
-                hasilPeriksa.style.color = "#28a745";
-                kolomKetik.style.borderColor = "#28a745";
-            } else {
-                hasilPeriksa.innerText = `❌ Salah. Penulisan yang benar: "${kumpulanKata[urutan].inggris}"`;
-                hasilPeriksa.style.color = "#dc3545";
-                kolomKetik.style.borderColor = "#dc3545";
-            }
-        }
-
-        segar();
-    </script>
-</body>
-</html>
+        // PANGKALAN DATA RAKSASA SINKRONISASI DARI DOKUMEN PDF ANDA (A SAMPAI Z)
+        const kamusBesar = {
+            A: [
+                { inggris: "Abandon", baca: "ebenden", indonesia: "Meninggalkan" },
+                { inggris: "Absolute", baca: "ebsolut", indonesia: "Mutlak" },
+                { inggris: "Absurd", baca: "ebserd", indonesia: "Konyol / Absurd" },
+                { inggris: "Accept", baca: "eksept", indonesia: "Menerima" },
+                { inggris: "Achieve", baca: "aciv", indonesia: "Mencapai" },
+                { inggris: "Action", baca: "eksen", indonesia: "Tindakan" },
+                { inggris: "Active", baca: "ektif", indonesia: "Aktif" },
+                { inggris: "Anxious", baca: "anksyes", indonesia: "Cemas / Gelisah" }
+            ],
+            B: [
+                { inggris: "Baby", baca: "bebi", indonesia: "Bayi" },
+                { inggris: "Background", baca: "bekgraund", indonesia: "Latar Belakang" },
+                { inggris: "Balance", baca: "belens", indonesia: "Keseimbangan" },
+                { inggris: "Beautiful", baca: "bjutiful", indonesia: "Cantik" },
+                { inggris: "Become", baca: "bikam", indonesia: "Menjadi" },
+                { inggris: "Before", baca: "bifor", indonesia: "Sebelum" },
+                { inggris: "Brave", baca: "breif", indonesia: "Berani" }
+            ],
+            C: [
+                { inggris: "Calculate", baca: "kelkuleit", indonesia: "Menghitung" },
+                { inggris: "Calm", baca: "kam", indonesia: "Tenang" },
+                { inggris: "Capable", baca: "keipebl", indonesia: "Mampu" },
+                { inggris: "Challenge", baca: "celenj", indonesia: "Tantangan" },
+                { inggris: "Change", baca: "ceinj", indonesia: "Mengubah / Berubah" },
+                { inggris: "Choice", baca: "cois", indonesia: "Pilihan" },
+                { inggris: "Company", baca: "kompani", indonesia: "Perusahaan" }
+            ],
+            D: [
+                { inggris: "Danger", baca: "deinjer", indonesia: "Bahaya" },
+                { inggris: "Dead", baca: "ded", indonesia: "Mati" },
+                { inggris: "Decade", baca: "dekeid", indonesia: "Dekade" },
+                { inggris: "Deep", baca: "dip", indonesia: "Dalam" },
+                { inggris: "Determine", baca: "ditermin", indonesia: "Menentukan" },
+                { inggris: "Develop", baca: "divelop", indonesia: "Mengembangkan" },
+                { inggris: "Difficult", baca: "difikalt", indonesia: "Sulit" }
+            ],
+            E: [
+                { inggris: "Each", baca: "ic", indonesia: "Setiap" },
+                { inggris: "Early", baca: "erli", indonesia: "Awal / Dini" },
+                { inggris: "Easily", baca: "izili", indonesia: "Dengan Mudah" },
+                { inggris: "Education", baca: "edukeisn", indonesia: "Pendidikan" },
+                { inggris: "Encourage", baca: "enkaridj", indonesia: "Mendorong / Menyemangati" },
+                { inggris: "Energy", baca: "enerji", indonesia: "Energi" },
+                { inggris: "Experience", baca: "ekspiriens", indonesia: "Pengalaman" }
+            ],
+            F: [
+                { inggris: "Fabric", baca: "febrik", indonesia: "Kain" },
+                { inggris: "Failure", baca: "feiljer", indonesia: "Kegagalan" },
+                { inggris: "Famous", baca: "feimes", indonesia: "Terkenal" },
+                { inggris: "Fast", baca: "fast", indonesia: "Cepat" },
+                { inggris: "Future", baca: "fjutser", indonesia: "Masa Depan" }
+            ],
+            G: [
+                { inggris: "Gadget", baca: "gejet", indonesia: "Alat kecil" },
+                { inggris: "Gain", baca: "gein", indonesia: "Keuntungan" },
+                { inggris: "Galaxy", baca: "geleksi", indonesia: "Galaksi" },
+                { inggris: "Genuine", baca: "jenuin", indonesia: "Asli" },
+                { inggris: "Gorgeous", baca: "gorjes", indonesia: "Sangat cantik / menawan" }
+            ],
+            H: [
+                { inggris: "Habit", baca: "hebit", indonesia: "Kebiasaan" },
+                { inggris: "Healthy", baca: "helsi", indonesia: "Sehat" },
+                { inggris: "History", baca: "histori", indonesia: "Sejarah" },
+                { inggris: "Human", baca: "hjumen", indonesia: "Manusia" },
+                { inggris: "Husband", baca: "hazbend", indonesia: "Suami" }
+            ],
+            I: [
+                { inggris: "Idea", baca: "aidia", indonesia: "Ide" },
+                { inggris: "Identify", baca: "aidentifai", indonesia: "Mengidentifikasi" },
+                { inggris: "Imagine", baca: "imejin", indonesia: "Membayangkan" },
+                { inggris: "Important", baca: "importen", indonesia: "Penting" },
+                { inggris: "Improve", baca: "impruf", indonesia: "Meningkatkan / Memperbaiki" }
+            ],
+            J: [
+                { inggris: "Jacket", baca: "jeket", indonesia: "Jaket" },
+                { inggris: "Jealous", baca: "jeles", indonesia: "Cemburu" },
+                { inggris: "Job", baca: "job", indonesia: "Pekerjaan" },
+                { inggris: "Journey", baca: "jerni", indonesia: "Perjalanan" }
+            ],
+            K: [
+                { inggris: "Keep", baca: "kip", indonesia: "Menyimpan / Menjaga" },
+                { inggris: "Key", baca: "ki", indonesia: "Kunci" },
