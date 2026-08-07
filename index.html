@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Master Irregular Verbs & Grammar - Ari Studio</title>
+    <title>Kamus Vocab & Irregular Verbs - Ari Studio</title>
 </head>
 <body style="font-family:sans-serif; text-align:center; background:#f4f7f6; padding-top:25px; margin:0; padding-bottom: 50px;">
 
     <!-- Judul Header -->
-    <div style="background: #007bff; padding: 15px; color: white; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-        <h1 style="margin: 0; font-size: 22px;">MASTER IRREGULAR VERBS & GRAMMAR</h1>
-        <h2 style="margin: 5px 0 0 0; font-size: 14px; font-weight: normal; opacity: 0.9;">Ari Studio - Versi Super Ringan</h2>
+    <div style="background: #28a745; padding: 15px; color: white; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <h1 style="margin: 0; font-size: 22px;">KAMUS VOCAB & IRREGULAR VERBS</h1>
+        <h2 style="margin: 5px 0 0 0; font-size: 14px; font-weight: normal; opacity: 0.9;">Ari Studio - Edisi Murni Tanpa Grammar</h2>
     </div>
 
     <!-- Indikator Jumlah Kata -->
     <div id="counter" style="font-size: 16px; color: #666; font-weight: bold; margin-bottom: 15px;">Memuat kata...</div>
 
     <!-- Kotak Kartu Hafalan Utama -->
-    <div onclick="tukarTampilan()" style="border: 3px solid #007bff; border-radius: 12px; padding: 35px 10px; width: 280px; margin: 15px auto; background: white; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer;">
+    <div onclick="tukarTampilan()" style="border: 3px solid #28a745; border-radius: 12px; padding: 40px 10px; width: 280px; margin: 20px auto; background: white; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer;">
         <div id="tulisanKata" style="font-size: 26px; font-weight: bold; color: #333;">Loading...</div>
         <div id="caraBaca" style="font-size: 15px; color: #6c757d; font-style: italic; margin-top: 8px;">Loading...</div>
         <div id="petunjuk" style="font-size: 13px; color: #888; margin-top: 15px;">(Ketuk kotak untuk melihat arti)</div>
@@ -25,22 +25,16 @@
 
     <!-- Tombol Putar Suara Audio -->
     <div style="margin-bottom: 20px;">
-        <button onclick="putarAudio(event)" style="background:#ffc107; color:#212529; border:none; padding:12px 24px; font-size:15px; font-weight:bold; border-radius:30px; cursor:pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.15);">
-            🔊 DENGAR SUARA (V1 - V2 - V3)
+        <button onclick="putarAudio(event)" style="background:#007bff; color:white; border:none; padding:12px 24px; font-size:15px; font-weight:bold; border-radius:30px; cursor:pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.15);">
+            🔊 DENGARKAN SUARA (AUDIO)
         </button>
     </div>
 
-    <!-- PANEL CATATAN GRAMMAR PINTAR (TENSE & RUMUS) -->
-    <div style="background: #e6f2ff; border: 2px solid #007bff; border-radius: 10px; width: 280px; margin: 15px auto; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); text-align: left;">
-        <span style="font-weight: bold; font-size: 14px; color: #007bff; display: block; margin-bottom: 6px;">📘 RUMUS GRAMMAR & CONTOH:</span>
-        <div id="teksGrammar" style="font-size: 14px; color: #333; line-height: 1.45;">Memuat tata bahasa...</div>
-    </div>
-
     <!-- Panel Latihan Koreksi Penulisan -->
-    <div style="background: #ffffff; border: 2px solid #007bff; border-radius: 10px; width: 280px; margin: 15px auto; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-        <label style="font-weight: bold; font-size: 13px; color: #444; display: block; margin-bottom: 8px;">✍️ TES EJAAN (Ketik Ulang Bentuk V1):</label>
-        <input type="text" id="kolomKetik" placeholder="Ketik kata V1 di sini..." style="width: 90%; padding: 10px; font-size: 16px; border: 2px solid #ccc; border-radius: 6px; text-align: center;">
-        <button onclick="periksaTulisan()" style="background: #007bff; color: white; border: none; padding: 10px 15px; font-size: 14px; font-weight: bold; border-radius: 6px; margin-top: 10px; cursor: pointer; width: 98%;">
+    <div style="background: #ffffff; border: 2px solid #28a745; border-radius: 10px; width: 280px; margin: 15px auto; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <label style="font-weight: bold; font-size: 13px; color: #444; display: block; margin-bottom: 8px;">✍️ LATIHAN KOREKSI PENULISAN (Ejaan Utama):</label>
+        <input type="text" id="kolomKetik" placeholder="Ketik ejaan Inggris utama di sini..." style="width: 90%; padding: 10px; font-size: 16px; border: 2px solid #ccc; border-radius: 6px; text-align: center;">
+        <button onclick="periksaTulisan()" style="background: #28a745; color: white; border: none; padding: 10px 15px; font-size: 14px; font-weight: bold; border-radius: 6px; margin-top: 10px; cursor: pointer; width: 98%;">
             PERIKSA TULISAN SAYA
         </button>
         <div id="hasilPeriksa" style="margin-top: 10px; font-weight: bold; font-size: 14px;"></div>
@@ -53,13 +47,42 @@
     </div>
 
     <script>
-        // DATA AMAN: 5 KATA KERJA TAK BERATURAN TERPILIH AGAR TIDAK TERPOTONG CHAT AI
+        // DATA MASTER MURNI: KOSAKATA HARIAN POPULER + IRREGULAR VERBS (TANPA GRAMMAR RUMIT)
         let kumpulanKata = [
-            { v1: "Become", v2: "Became", v3: "Become", baca: "bikam - bikeim - bikam", indonesia: "Menjadi", grammar: "<b>V1 (Simple Present):</b> I want to <u>become</u> a doctor.<br><b>V2 (Simple Past):</b> He <u>became</u> a leader yesterday.<br><b>V3 (Present Perfect):</b> She has <u>become</u> successful." },
-            { v1: "Begin", v2: "Began", v3: "Begun", baca: "bigin - bigen - bigan", indonesia: "Memulai", grammar: "<b>V1 (Simple Present):</b> Let's <u>begin</u> the class.<br><b>V2 (Simple Past):</b> The rain <u>began</u> an hour ago.<br><b>V3 (Present Perfect):</b> The concert has <u>begun</u>." },
-            { v1: "Break", v2: "Broke", v3: "Broken", baca: "breik - brouk - brouken", indonesia: "Mematahkan / Merusak", grammar: "<b>V1 (Simple Present):</b> Don't <u>break</u> the rules.<br><b>V2 (Simple Past):</b> He <u>broke</u> his phone last night.<br><b>V3 (Present Perfect):</b> The window is <u>broken</u>." },
-            { v1: "Bring", v2: "Brought", v3: "Brought", baca: "brin - brot - brot", indonesia: "Membawa", grammar: "<b>V1 (Simple Present):</b> Always <u>bring</u> your book.<br><b>V2 (Simple Past):</b> She <u>brought</u> some cakes yesterday.<br><b>V3 (Present Perfect):</b> I have <u>brought</u> the camera." },
-            { v1: "Build", v2: "Built", v3: "Built", baca: "bild - bilt - bilt", indonesia: "Membangun", grammar: "<b>V1 (Simple Present):</b> They <u>build</u> a house.<br><b>V2 (Simple Past):</b> Company <u>built</u> this office in 2020.<br><b>V3 (Present Perfect):</b> The library has been <u>built</u>." }
+            // Kategori: Family (Kosakata Harian)
+            { inggris: "Father", cek: "Father", baca: "fader", indonesia: "Ayah" },
+            { inggris: "Mother", cek: "Mother", baca: "mader", indonesia: "Ibu" },
+            { inggris: "Parents", cek: "Parents", baca: "perents", indonesia: "Orang tua" },
+            { inggris: "Brother", cek: "Brother", baca: "brader", indonesia: "Saudara laki-laki" },
+            { inggris: "Sister", cek: "Sister", baca: "sister", indonesia: "Saudara perempuan" },
+            { inggris: "Husband", cek: "Husband", baca: "hasbend", indonesia: "Suami" },
+            { inggris: "Wife", cek: "Wife", baca: "waif", indonesia: "Istri" },
+            { inggris: "Family", cek: "Family", baca: "femili", indonesia: "Keluarga" },
+
+            // Kategori: Parts of a House (Kosakata Harian)
+            { inggris: "House / Home", cek: "House", baca: "haus / houm", indonesia: "Rumah" },
+            { inggris: "Living room", cek: "Living room", baca: "livin rum", indonesia: "Ruang tamu" },
+            { inggris: "Bedroom", cek: "Bedroom", baca: "bed rum", indonesia: "Kamar tidur" },
+            { inggris: "Kitchen", cek: "Kitchen", baca: "kitcen", indonesia: "Dapur" },
+            { inggris: "Door / Window", cek: "Door", baca: "dor / windou", indonesia: "Pintu / Jendela" },
+            { inggris: "Wall / Ceiling", cek: "Wall", baca: "wol / silin", indonesia: "Dinding / Langit-langit" },
+
+            // Kategori: Irregular Verbs (Kata Kerja Tak Beraturan V1 - V2 - V3)
+            { inggris: "Become - Became - Become", cek: "Become", baca: "bikam - bikeim - bikam", indonesia: "Menjadi" },
+            { inggris: "Begin - Began - Begun", cek: "Begin", baca: "bigin - bigen - bigan", indonesia: "Memulai" },
+            { inggris: "Break - Broke - Broken", cek: "Break", baca: "breik - brouk - brouken", indonesia: "Mematahkan / Merusak" },
+            { inggris: "Bring - Brought - Brought", cek: "Bring", baca: "brin - brot - brot", indonesia: "Membawa" },
+            { inggris: "Build - Built - Built", cek: "Build", baca: "bild - bilt - bilt", indonesia: "Membangun" },
+            { inggris: "Buy - Bought - Bought", cek: "Buy", baca: "bai - bot - bot", indonesia: "Membeli" },
+            { inggris: "Choose - Chose - Chosen", cek: "Choose", baca: "cuuz - couz - couzen", indonesia: "Memilih" },
+            { inggris: "Come - Came - Come", cek: "Come", baca: "kam - keim - kam", indonesia: "Datang" },
+            { inggris: "Cut - Cut - Cut", cek: "Cut", baca: "kat - kat - kat", indonesia: "Memotong" },
+            { inggris: "Do - Did - Done", cek: "Do", baca: "du - did - dan", indonesia: "Melakukan" },
+            { inggris: "Draw - Drew - Drawn", cek: "Draw", baca: "dro - dru - dron", indonesia: "Menggambar" },
+            { inggris: "Drive - Drove - Driven", cek: "Drive", baca: "draiv - drouv - driven", indonesia: "Mengemudi" },
+            { inggris: "Fall - Fell - Fallen", cek: "Fall", baca: "fol - fel - follen", indonesia: "Terjatuh" },
+            { inggris: "Feel - Felt - Felt", cek: "Feel", baca: "fiil - felt - felt", indonesia: "Merasakan" },
+            { inggris: "Find - Found - Found", cek: "Find", baca: "faind - faund - faund", indonesia: "Menemukan" }
         ];
 
         let urutan = 0; 
@@ -69,7 +92,6 @@
         const caraBaca = document.getElementById("caraBaca"); 
         const petunjuk = document.getElementById("petunjuk"); 
         const counter = document.getElementById("counter");
-        const teksGrammar = document.getElementById("teksGrammar");
         const kolomKetik = document.getElementById("kolomKetik");
         const hasilPeriksa = document.getElementById("hasilPeriksa");
 
@@ -78,16 +100,15 @@
             let item = kumpulanKata[urutan];
             
             if (tampilInggris) {
-                kata.innerText = `${item.v1} - ${item.v2} - ${item.v3}`;
+                kata.innerText = item.inggris;
                 caraBaca.innerText = "Pelafalan: " + item.baca;
                 petunjuk.innerText = "(Ketuk kotak untuk melihat arti)";
             } else {
                 kata.innerText = item.indonesia;
-                caraBaca.innerText = "Arti Kata Kerja";
+                caraBaca.innerText = "Arti Kosakata / Kata Kerja";
                 petunjuk.innerText = "(Ketuk kotak untuk melihat kata Inggris)";
             }
             
-            teksGrammar.innerHTML = item.grammar;
             counter.innerText = `Kata ${urutan + 1} dari ${kumpulanKata.length}`;
             kolomKetik.value = "";
             hasilPeriksa.innerText = "";
@@ -102,15 +123,14 @@
             event.stopPropagation();
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
-                let teksSuara = `${kumpulanKata[urutan].v1}, ${kumpulanKata[urutan].v2}, ${kumpulanKata[urutan].v3}`;
-                let suara = new SpeechSynthesisUtterance(teksSuara);
+                let suara = new SpeechSynthesisUtterance(kumpulanKata[urutan].inggris);
                 suara.lang = 'en-US'; suara.rate = 0.75; window.speechSynthesis.speak(suara);
             }
         }
 
         function periksaTulisan() {
             let jawabanUser = kolomKetik.value.trim().toLowerCase();
-            let jawabanBenar = kumpulanKata[urutan].v1.toLowerCase();
+            let jawabanBenar = kumpulanKata[urutan].cek.toLowerCase();
             
             if (jawabanUser === "") {
                 hasilPeriksa.innerText = "⚠️ Harap ketik dulu jawabannya!";
@@ -119,17 +139,9 @@
             }
 
             if (jawabanUser === jawabanBenar) {
-                hasilPeriksa.innerText = "✅ Hebat! Ejaan kata V1 Anda 100% Benar!";
+                hasilPeriksa.innerText = "✅ Hebat! Ejaan tulisan Anda 100% Benar!";
                 hasilPeriksa.style.color = "#28a745";
                 kolomKetik.style.borderColor = "#28a745";
             } else {
-                hasilPeriksa.innerText = `❌ Keliru. Penulisan V1 yang benar: "${kumpulanKata[urutan].v1}"`;
+                hasilPeriksa.innerText = `❌ Keliru. Penulisan yang benar: "${kumpulanKata[urutan].cek}"`;
                 hasilPeriksa.style.color = "#dc3545";
-                kolomKetik.style.borderColor = "#dc3545";
-            }
-        }
-
-        segar();
-    </script>
-</body>
-</html>
