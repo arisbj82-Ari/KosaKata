@@ -14,51 +14,65 @@
     </style>
 </head>
 <body style="font-family:sans-serif; text-align:center; background:#f4f7f6; margin:0; padding-bottom: 50px;">
+    
     <div style="background: #007bff; padding: 25px 10px; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
         <h1 style="margin: 0; font-size: 24px; font-weight: bold;">KAMUS HAFALAN VOCABULARY</h1>
-        <h2 style="margin: 5px 0 0 0; font-size: 16px; font-weight: normal; opacity: 0.9;">Ari Studio - Sempurna di Laptop</h2>
+        <h2 style="margin: 5px 0 0 0; font-size: 16px; font-weight: normal; opacity: 0.9;">Ari Studio - Versi Stabil Vercel</h2>
     </div>
+
     <div style="margin: 20px auto; width: 90%; max-width: 400px; text-align: left;">
         <label style="font-weight: bold; color: #555; display: block; margin-bottom: 5px;">Pilih Awalan Huruf:</label>
         <select id="alphabetSelect" onchange="changeLetter()" style="width: 100%; padding: 12px; font-size: 16px; border-radius: 8px; border: 2px solid #007bff; background: white; font-weight: bold; color: #333;">
             <option value="A">Huruf A</option><option value="B">Huruf B</option><option value="C">Huruf C</option><option value="D">Huruf D</option><option value="E">Huruf E</option><option value="F">Huruf F</option><option value="G">Huruf G</option><option value="H">Huruf H</option><option value="I">Huruf I</option><option value="J">Huruf J</option><option value="K">Huruf K</option><option value="L">Huruf L</option><option value="M">Huruf M</option><option value="O">Huruf O</option><option value="P">Huruf P</option><option value="Q">Huruf Q</option><option value="R">Huruf R</option><option value="S">Huruf S</option><option value="T">Huruf T</option><option value="U">Huruf U</option><option value="V">Huruf V</option><option value="W">Huruf W</option><option value="X">Huruf X</option><option value="Y">Huruf Y</option><option value="Z">Huruf Z</option>
         </select>
     </div>
+    
     <div id="counter" style="font-size: 16px; color: #666; margin: 15px 0 5px 0; font-weight: bold;">Loading...</div>
+
     <div class="flip-container" onclick="flipCard()">
         <div id="flipper" class="flipper">
-            <div class="front"><div id="wordText">Loading...</div><div id="phonemicText" style="font-size: 15px; color: #666; font-weight: normal; margin-top: 10px; font-style: italic;"></div></div>
-            <div class="back"><div id="backText">Loading...</div><div style="font-size: 14px; color: #007bff; font-weight: normal; margin-top: 10px;">Arti Kata</div></div>
+            <div class="front">
+                <div id="wordText">Loading...</div>
+                <div id="phonemicText" style="font-size: 15px; color: #666; font-weight: normal; margin-top: 10px; font-style: italic;"></div>
+            </div>
+            <div class="back">
+                <div id="backText">Loading...</div>
+                <div style="font-size: 14px; color: #007bff; font-weight: normal; margin-top: 10px;">Arti Kata</div>
+            </div>
         </div>
     </div>
+    
     <p style="color:#888; font-size: 14px; margin-bottom: 20px;">💡 Ketuk kartu untuk melihat efek putar visual arti bahasa Indonesia</p>
+
     <div>
         <button onclick="prevWord()" style="background:#6c757d; color:white; border:none; padding:12px 20px; font-size:16px; font-weight:bold; border-radius:8px; cursor:pointer; margin-right:10px; box-shadow:0 4px 6px rgba(0,0,0,0.1);">🡨 KEMBALI</button>
         <button onclick="nextWord()" style="background:#28a745; color:white; border:none; padding:12px 24px; font-size:16px; font-weight:bold; border-radius:8px; cursor:pointer; box-shadow:0 4px 6px rgba(0,0,0,0.1);">LANJUT ➔</button>
     </div>
+    
     <div style="margin-top: 20px;">
         <button onclick="shuffleWords()" style="background:#ffc107; color:#212529; border:none; padding:10px 18px; font-size:14px; font-weight:bold; border-radius:6px; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.1);">🔀 ACAK URUTAN HURUF INI</button>
     </div>
+
     <script>
         const kamusBesar = {
-            A: [{ inggris: "Abandon", fonem: "/ə'bændən/", indo: "Meninggalkan" },{ inggris: "Absolute", fonem: "/'æbsəlu:t/", indo: "Mutlak" },{ inggris: "Absurd", fonem: "/ǝb's3:rd/", indo: "Konyol / Absurd" },{ inggris: "Accept", fonem: "/ǝk'sept/", indo: "Menerima" },{ inggris: "Achieve", fonem: "/ǝ'tfi:v/", indo: "Mencapai" }],
-            B: [{ inggris: "Baby", fonem: "/'beɪbi/", indo: "Bayi" },{ inggris: "Background", fonem: "/'bækɡraʊnd/", indo: "Latar Belakang" },{ inggris: "Balance", fonem: "/'bæləns/", indo: "Keseimbangan" },{ inggris: "Beautiful", fonem: "/'bjuːtɪfl/", indo: "Cantik" }],
-            C: [{ inggris: "Calculate", fonem: "/ˈkælkjuleɪt/", indo: "Menghitung" },{ inggris: "Calm", fonem: "/kɑːm/", indo: "Tenang" },{ inggris: "Capable", fonem: "/ˈkeɪpəbl/", indo: "Mampu" },{ inggris: "Challenge", fonem: "/ˈtʃælɪndʒ/", indo: "Tantangan" }],
-            D: [{ inggris: "Danger", fonem: "/ˈdeındʒər/", indo: "Bahaya" },{ inggris: "Dead", fonem: "/ded/", indo: "Mati" },{ inggris: "Decade", fonem: "/ˈdekeɪd/", indo: "Dekade" },{ inggris: "Deep", fonem: "/diːp/", indo: "Dalam" }],
-            E: [{ inggris: "Each", fonem: "/iːtʃ/", indo: "Setiap" },{ inggris: "Early", fonem: "/ˈɜːli/", indo: "Awal / Dini" },{ inggris: "Easily", fonem: "/ˈiːzəli/", indo: "Dengan Mudah" },{ inggris: "Education", fonem: "/ˌedʒuˈkeɪʃn/", indo: "Pendidikan" }],
-            F: [{ inggris: "Faithful", fonem: "/ˈfeɪθfl/", indo: "Setia" },{ inggris: "Famous", fonem: "/ˈfeɪməs/", indo: "Terkenal" },{ inggris: "Fast", fonem: "/fɑːst/", indo: "Cepat" },{ inggris: "Future", fonem: "/ˈfjuːtʃər/", indo: "Masa Depan" }],
-            G: [{ inggris: "Gain", fonem: "/ɡeɪn/", indo: "Keuntungan" },{ inggris: "Generous", fonem: "/ˈdzenərəs/", indo: "Dermawan" },{ inggris: "Genuine", fonem: "/ˈdzenjuɪn/", indo: "Asli" },{ inggris: "Guarantee", fonem: "/ˌɡærənˈtiː/", indo: "Jaminan" }],
-            H: [{ inggris: "Habit", fonem: "/ˈhæbɪt/", indo: "Kebiasaan" },{ inggris: "Healthy", fonem: "/ˈhelθi/", indo: "Sehat" },{ inggris: "History", fonem: "/ˈhɪstəri/", indo: "Sejarah" },{ inggris: "Human", fonem: "/ˈhjuːmən/", indo: "Manusia" }],
-            I: [{ inggris: "Idea", fonem: "/aɪˈdɪə/", indo: "Ide" },{ inggris: "Identify", fonem: "/aɪˈdentɪfaɪ/", indo: "Mengidentifikasi" },{ inggris: "Imagine", fonem: "/ɪˈmædʒɪn/", indo: "Membayangkan" },{ inggris: "Important", fonem: "/ɪmˈpɔːtnt/", indo: "Penting" }],
-            J: [{ inggris: "Jacket", fonem: "/ˈdʒækɪt/", indo: "Jaket" },{ inggris: "Jealous", fonem: "/ˈdʒeləs/", indo: "Cemburu" },{ inggris: "Job", fonem: "/dʒɒb/", indo: "Pekerjaan" },{ inggris: "Journey", fonem: "/ˈdʒɜːni/", indo: "Perjalanan" }],
-            K: [{ inggris: "Keep", fonem: "/kiːp/", indo: "Menyimpan" },{ inggris: "Key", fonem: "/kiː/", indo: "Kunci" },{ inggris: "Keyboard", fonem: "/ˈkiːbɔːd/", indo: "Papan Ketik" },{ inggris: "Knowledge", fonem: "/ˈnɒlɪdʒ/", indo: "Pengetahuan" }],
-            L: [{ inggris: "Laptop", fonem: "/ˈlæptɒp/", indo: "Laptop" },{ inggris: "Legal", fonem: "/ˈliːɡl/", indo: "Sah" },{ inggris: "Library", fonem: "/ˈlaɪbrəri/", indo: "Perpustakaan" },{ inggris: "Lucky", fonem: "/ˈlʌki/", indo: "Beruntung" }],
-            M: [{ inggris: "Machine", fonem: "/məˈʃiːn/", indo: "Mesin" },{ inggris: "Magazine", fonem: "/ˌmæɡəˈziːn/", indo: "Majalah" },{ inggris: "Market", fonem: "/ˈmɑːkɪt/", indo: "Pasar" },{ inggris: "Memory", fonem: "/ˈmeməri/", indo: "Ingatan" }],
-            O: [{ inggris: "Object", fonem: "/ˈɒbdʒɪkt/", indo: "Objek" },{ inggris: "Observe", fonem: "/əbˈzɜːv/", indo: "Mengamati" },{ icon: "Ocean", fonem: "/ˈoʊʃn/", indo: "Samudra" },{ inggris: "Option", fonem: "/ˈɒpʃn/", indo: "Pilihan" }],
-            P: [{ inggris: "Package", fonem: "/ˈpækɪdʒ/", indo: "Paket" },{ inggris: "Page", fonem: "/peɪdʒ/", indo: "Halaman" },{ inggris: "Paper", fonem: "/ˈpeɪpər/", indo: "Kertas" },{ inggris: "Product", fonem: "/ˈprɒdʌkt/", indo: "Produk" }],
-            Q: [{ inggris: "Quality", fonem: "/ˈkwɒləti/", indo: "Kualitas" },{ inggris: "Quantity", fonem: "/ˈkwɒntəti/", indo: "Kuantitas" },{ inggris: "Queen", fonem: "/kwiːn/", indo: "Ratu" },{ inggris: "Quick", fonem: "/kwɪk/", indo: "Cepat" }],
-            R: [{ inggris: "Radio", fonem: "/ˈreɪdioʊ/", indo: "Radio" },{ inggris: "Rain", fonem: "/reɪn/", indo: "Hujan" },{ inggris: "Reason", fonem: "/ˈriːzn/", indo: "Alasan" },{ inggris: "Receive", fonem: "/rɪˈsiːv/", indo: "Menerima" }],
-            S: [{ inggris: "Sad", fonem: "/sæd/", indo: "Sedih" },{ inggris: "Safe", fonem: "/seɪf/", indo: "Aman" },{ inggris: "Science", fonem: "/ˈsaɪəns/", indo: "Sains" },{ inggris: "Simple", fonem: "/ˈsimpl/", indo: "Sederhana" }],
-            T: [{ inggris: "Table", fonem: "/ˈteɪbl/", indo: "Meja" },{ inggris: "Team", fonem: "/tiːm/", indo: "Tim" },{ inggris: "Theory", fonem: "/ˈθɪəri/", indo: "Teori" },{ inggris: "Today", fonem: "/təˈdeɪ/", indo: "Hari Ini" }],
-            U: [{ inggris: "Ugly", fonem: "/ˈʌɡli/", indo: "Buruk" },{ inggris: "Umbrella", fonem: "/ʌmˈbrelə/", indo: "Payung" },{ inggris: "Update", fonem: "/ˌʌpˈdeɪt/", indo: "Pemberitahuan" },{ inggris: "Useful", fonem: "/ˈjuːsfl/", indo: "Berguna" }],
-           V: [{ inggris: "Vacation", fonem: "/vekeɪsn/", indo: "Liburan" }]
+            A: [{ inggris: "Abandon", fonem: "/abandan/", indo: "Meninggalkan" },{ inggris: "Absolute", fonem: "/absolut/", indo: "Mutlak" },{ inggris: "Absurd", fonem: "/absurd/", indo: "Konyol / Absurd" },{ inggris: "Accept", fonem: "/aksept/", indo: "Menerima" },{ inggris: "Achieve", fonem: "/aciv/", indo: "Mencapai" }],
+            B: [{ inggris: "Baby", fonem: "/bebi/", indo: "Bayi" },{ inggris: "Background", fonem: "/bekgraund/", indo: "Latar Belakang" },{ inggris: "Balance", fonem: "/belens/", indo: "Keseimbangan" },{ inggris: "Beautiful", fonem: "/bjutiful/", indo: "Cantik" }],
+            C: [{ inggris: "Calculate", fonem: "/kelkuleit/", indo: "Menghitung" },{ inggris: "Calm", fonem: "/kam/", indo: "Tenang" },{ inggris: "Capable", fonem: "/keipebl/", indo: "Mampu" },{ inggris: "Challenge", fonem: "/celenj/", indo: "Tantangan" }],
+            D: [{ inggris: "Danger", fonem: "/deinjer/", indo: "Bahaya" },{ inggris: "Dead", fonem: "/ded/", indo: "Mati" },{ inggris: "Decade", fonem: "/dekeid/", indo: "Dekade" },{ inggris: "Deep", fonem: "/dip/", indo: "Dalam" }],
+            E: [{ inggris: "Each", fonem: "/ic/", indo: "Setiap" },{ inggris: "Early", fonem: "/erli/", indo: "Awal / Dini" },{ inggris: "Easily", fonem: "/izili/", indo: "Dengan Mudah" },{ inggris: "Education", fonem: "/edukeisn/", indo: "Pendidikan" }],
+            F: [{ inggris: "Faithful", fonem: "/feisful/", indo: "Setia" },{ inggris: "Famous", fonem: "/feimes/", indo: "Terkenal" },{ inggris: "Fast", fonem: "/fast/", indo: "Cepat" },{ inggris: "Future", fonem: "/fjutser/", indo: "Masa Depan" }],
+            G: [{ inggris: "Gain", fonem: "/gein/", indo: "Keuntungan" },{ inggris: "Generous", fonem: "/jeneres/", indo: "Dermawan" },{ inggris: "Genuine", fonem: "/jenuin/", indo: "Asli" },{ inggris: "Guarantee", fonem: "/geranti/", indo: "Jaminan" }],
+            H: [{ inggris: "Habit", fonem: "/hebit/", indo: "Kebiasaan" },{ inggris: "Healthy", fonem: "/helsi/", indo: "Sehat" },{ inggris: "History", fonem: "/histori/", indo: "Sejarah" },{ inggris: "Human", fonem: "/hjumen/", indo: "Manusia" }],
+            I: [{ inggris: "Idea", fonem: "/aidia/", indo: "Ide" },{ inggris: "Identify", fonem: "/aidentifai/", indo: "Mengidentifikasi" },{ inggris: "Imagine", fonem: "/imejin/", indo: "Membayangkan" },{ inggris: "Important", fonem: "/importen/", indo: "Penting" }],
+            J: [{ inggris: "Jacket", fonem: "/jeket/", indo: "Jaket" },{ inggris: "Jealous", fonem: "/jeles/", indo: "Cemburu" },{ inggris: "Job", fonem: "/job/", indo: "Pekerjaan" },{ inggris: "Journey", fonem: "/jerni/", indo: "Perjalanan" }],
+            K: [{ inggris: "Keep", fonem: "/kip/", indo: "Menyimpan" },{ inggris: "Key", fonem: "/ki/", indo: "Kunci" },{ inggris: "Keyboard", fonem: "/kibord/", indo: "Papan Ketik" },{ inggris: "Knowledge", fonem: "/nolej/", indo: "Pengetahuan" }],
+            L: [{ inggris: "Laptop", fonem: "/laptop/", indo: "Laptop" },{ inggris: "Legal", fonem: "/ligl/", indo: "Sah" },{ inggris: "Library", fonem: "/laibreri/", indo: "Perpustakaan" },{ inggris: "Lucky", fonem: "/laki/", indo: "Beruntung" }],
+            M: [{ inggris: "Machine", fonem: "/mesin/", indo: "Mesin" },{ inggris: "Magazine", fonem: "/megasin/", indo: "Majalah" },{ inggris: "Market", fonem: "/market/", indo: "Pasar" },{ inggris: "Memory", fonem: "/memori/", indo: "Ingatan" }],
+            O: [{ inggris: "Object", fonem: "/objek/", indo: "Objek" },{ inggris: "Observe", fonem: "/obserf/", indo: "Mengamati" },{ inggris: "Ocean", fonem: "/ousen/", indo: "Samudra" },{ inggris: "Option", fonem: "/opsen/", indo: "Pilihan" }],
+            P: [{ inggris: "Package", fonem: "/pekej/", indo: "Paket" },{ inggris: "Page", fonem: "/peij/", indo: "Halaman" },{ inggris: "Paper", fonem: "/peiper/", indo: "Kertas" },{ inggris: "Product", fonem: "/proda k/", indo: "Produk" }],
+            Q: [{ inggris: "Quality", fonem: "/kwaliti/", indo: "Kualitas" },{ inggris: "Quantity", fonem: "/kwantiti/", indo: "Kuantitas" },{ inggris: "Queen", fonem: "/kwin/", indo: "Ratu" },{ inggris: "Quick", fonem: "/kwik/", indo: "Cepat" }],
+            R: [{ inggris: "Radio", fonem: "/reidio/", indo: "Radio" },{ inggris: "Rain", fonem: "/rein/", indo: "Hujan" },{ inggris: "Reason", fonem: "/risn/", indo: "Alasan" },{ inggris: "Receive", fonem: "/risif/", indo: "Menerima" }],
+            S: [{ inggris: "Sad", fonem: "/sed/", indo: "Sedih" },{ inggris: "Safe", fonem: "/seif/", indo: "Aman" },{ inggris: "Science", fonem: "/saiens/", indo: "Sains" },{ inggris: "Simple", fonem: "/simpl/", indo: "Sederhana" }],
+            T: [{ inggris: "Table", fonem: "/teibl/", indo: "Meja" },{ inggris: "Team", fonem: "/tim/", indo: "Tim" },{ inggris: "Theory", fonem: "/siori/", indo: "Teori" },{ inggris: "Today", fonem: "/tudei/", indo: "Hari Ini" }],
+            U: [{ inggris: "Ugly", fonem: "/agli/", indo: "Buruk" },{ inggris: "Umbrella", fonem: "/ambrela/", indo: "Payung" },{ inggris: "Update", fonem: "/apdeit/", indo: "Pemberitahuan" },{ inggris: "Useful", fonem: "/jusful/", indo: "Berguna" }],
+            V: [{ inggris: "Vacation", fonem: "/vekeisn/", indo: "Liburan" },{ inggris: "Value", fonem: "/velju/", indo: "Nilai" },{ inggris: "Vehicle", fonem: "/vihikl/", indo: "Kendaraan" },{ inggris: "Victory", fonem: "/viktori/", indo: "Kemenangan" }],
