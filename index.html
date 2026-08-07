@@ -4,33 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kamus Vocab & Irregular Verbs - Ari Studio</title>
+    <!-- BARIS KODE SAKTI PENYAMBUNG APLIKASI HP -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#28a745">
 </head>
 <body style="font-family:sans-serif; text-align:center; background:#f4f7f6; padding-top:25px; margin:0; padding-bottom: 50px;">
 
-    <!-- Judul Header -->
     <div style="background: #28a745; padding: 15px; color: white; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
         <h1 style="margin: 0; font-size: 22px;">KAMUS VOCAB & IRREGULAR VERBS</h1>
-        <h2 style="margin: 5px 0 0 0; font-size: 14px; font-weight: normal; opacity: 0.9;">Ari Studio - Edisi Komplit & Ringan</h2>
+        <h2 style="margin: 5px 0 0 0; font-size: 14px; font-weight: normal; opacity: 0.9;">Ari Studio - Versi Aplikasi HP</h2>
     </div>
 
-    <!-- Indikator Jumlah Kata -->
     <div id="counter" style="font-size: 16px; color: #666; font-weight: bold; margin-bottom: 15px;">Memuat kata...</div>
 
-    <!-- Kotak Kartu Hafalan Utama -->
     <div onclick="tukarTampilan()" style="border: 3px solid #28a745; border-radius: 12px; padding: 40px 10px; width: 280px; margin: 20px auto; background: white; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer;">
         <div id="tulisanKata" style="font-size: 26px; font-weight: bold; color: #333;">Loading...</div>
         <div id="caraBaca" style="font-size: 15px; color: #6c757d; font-style: italic; margin-top: 8px;">Loading...</div>
         <div id="petunjuk" style="font-size: 13px; color: #888; margin-top: 15px;">(Ketuk kotak untuk melihat arti)</div>
     </div>
 
-    <!-- Tombol Putar Suara Audio -->
     <div style="margin-bottom: 20px;">
         <button onclick="putarAudio(event)" style="background:#007bff; color:white; border:none; padding:12px 24px; font-size:15px; font-weight:bold; border-radius:30px; cursor:pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.15);">
             🔊 DENGARKAN SUARA (AUDIO)
         </button>
     </div>
 
-    <!-- Panel Latihan Koreksi Penulisan -->
     <div style="background: #ffffff; border: 2px solid #28a745; border-radius: 10px; width: 280px; margin: 15px auto; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
         <label style="font-weight: bold; font-size: 13px; color: #444; display: block; margin-bottom: 8px;">✍️ LATIHAN KOREKSI PENULISAN (Ejaan Utama):</label>
         <input type="text" id="kolomKetik" placeholder="Ketik ejaan Inggris utama di sini..." style="width: 90%; padding: 10px; font-size: 16px; border: 2px solid #ccc; border-radius: 6px; text-align: center;">
@@ -40,14 +38,12 @@
         <div id="hasilPeriksa" style="margin-top: 10px; font-weight: bold; font-size: 14px;"></div>
     </div>
 
-    <!-- Tombol Navigasi Kembali / Lanjut -->
     <div style="margin-top: 25px;">
         <button onclick="kataSebelumnya()" style="background:#6c757d; color:white; border:none; padding:12px 20px; font-size:16px; font-weight:bold; border-radius:8px; cursor:pointer; margin-right:10px;">🡨 KEMBALI</button>
         <button onclick="kataBerikutnya()" style="background:#28a745; color:white; border:none; padding:12px 24px; font-size:16px; font-weight:bold; border-radius:8px; cursor:pointer;">LANJUT ➔</button>
     </div>
 
     <script>
-        // DATA MASTER VERSI KOMPRESI TINGGI: JAUH LEBIH PENDEK & BEBAS DARI RESIKO TERPOTONG
         let kumpulanKata = [
             { e: "Father", c: "Father", b: "fader", i: "Ayah" }, { e: "Mother", c: "Mother", b: "mader", i: "Ibu" }, { e: "Parents", c: "Parents", b: "perents", i: "Orang tua" }, { e: "Son", c: "Son", b: "san", i: "Anak laki-laki" }, { e: "Daughter", c: "Daughter", b: "doter", i: "Anak perempuan" },
             { e: "Grandfather", c: "Grandfather", b: "grend-fader", i: "Kakek" }, { e: "Grandmother", c: "Grandmother", b: "grend-mader", i: "Nenek" }, { e: "Brother", c: "Brother", b: "brader", i: "Saudara laki-laki" }, { e: "Sister", c: "Sister", b: "sister", i: "Saudara perempuan" }, { e: "Sibling", c: "Sibling", b: "siblin", i: "Saudara kandung" },
@@ -91,5 +87,6 @@
             else { hasilPeriksa.innerText = `❌ Keliru. Penulisan yang benar: "${kumpulanKata[urutan].c}"`; hasilPeriksa.style.color = "#dc3545"; kolomKetik.style.borderColor = "#dc3545"; }
         }
         segar();
+        // REGISTRASI FITUR LOGO APLIKASI DI HP
+        if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('index.html'); }); }
     </script>
-</body>
