@@ -3,36 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kamus Hafalan Vocab Raksasa - Ari Studio</title>
+    <title>Vocab Harian Populer - Ari Studio</title>
 </head>
-<body style="font-family:sans-serif; text-align:center; background:#f4f7f6; padding-top:20px; margin:0; padding-bottom: 50px;">
+<body style="font-family:sans-serif; text-align:center; background:#f4f7f6; padding-top:40px; margin:0;">
 
     <!-- Judul Header -->
-    <div style="background: #28a745; padding: 15px; color: white; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-        <h1 style="margin: 0; font-size: 22px;">KAMUS VOCAB RAKSASA ARI STUDIO</h1>
-    </div>
-
-    <!-- Pilihan Alfabet Folder (A-Z) -->
-    <div style="margin: 15px auto; width: 280px; text-align: left;">
-        <label style="font-weight: bold; color: #333; display: block; margin-bottom: 5px; font-size: 14px;">Pilih Awalan Huruf:</label>
-        <select id="alphabetSelect" onchange="gantiFolderAbjad()" style="width: 100%; padding: 10px; font-size: 16px; border-radius: 8px; border: 2px solid #28a745; background: white; font-weight: bold; color: #333; cursor: pointer;">
-            <option value="A">Huruf A</option><option value="B">Huruf B</option><option value="C">Huruf C</option><option value="D">Huruf D</option><option value="E">Huruf E</option><option value="F">Huruf F</option><option value="G">Huruf G</option><option value="H">Huruf H</option><option value="I">Huruf I</option><option value="J">Huruf J</option><option value="K">Huruf K</option><option value="L">Huruf L</option><option value="M">Huruf M</option><option value="N">Huruf N</option><option value="O">Huruf O</option><option value="P">Huruf P</option><option value="Q">Huruf Q</option><option value="R">Huruf R</option><option value="S">Huruf S</option><option value="T">Huruf T</option><option value="U">Huruf U</option><option value="V">Huruf V</option><option value="W">Huruf W</option><option value="X">Huruf X</option><option value="Y">Huruf Y</option><option value="Z">Huruf Z</option>
-        </select>
+    <div style="background: #28a745; padding: 15px; color: white; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <h1 style="margin: 0; font-size: 22px;">VOCAB HARIAN ARI STUDIO</h1>
     </div>
 
     <!-- Indikator Jumlah Kata -->
-    <div id="counter" style="font-size: 15px; color: #666; font-weight: bold; margin-bottom: 10px;">Memuat data...</div>
+    <div id="counter" style="font-size: 16px; color: #666; font-weight: bold; margin-bottom: 15px;">Memuat kata...</div>
 
     <!-- Kotak Kartu Hafalan Utama -->
-    <div onclick="tukarTampilan()" style="border: 3px solid #28a745; border-radius: 12px; padding: 35px 10px; width: 270px; margin: 15px auto; background: white; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer;">
-        <div id="tulisanKata" style="font-size: 34px; font-weight: bold; color: #333;">Mulai</div>
-        <div id="caraBaca" style="font-size: 16px; color: #6c757d; font-style: italic; margin-top: 5px;">Klik Lanjut</div>
+    <div onclick="tukarTampilan()" style="border: 3px solid #28a745; border-radius: 12px; padding: 40px 10px; width: 270px; margin: 20px auto; background: white; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer;">
+        <div id="tulisanKata" style="font-size: 34px; font-weight: bold; color: #333;">Book</div>
+        <div id="caraBaca" style="font-size: 16px; color: #6c757d; font-style: italic; margin-top: 5px;">Cara baca: buk</div>
         <div id="petunjuk" style="font-size: 13px; color: #888; margin-top: 15px;">(Ketuk kotak untuk melihat arti)</div>
     </div>
 
     <!-- Tombol Putar Suara Audio -->
-    <div style="margin-bottom: 20px;">
-        <button onclick="putarAudio(event)" style="background:#007bff; color:white; border:none; padding:11px 22px; font-size:15px; font-weight:bold; border-radius:30px; cursor:pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.15);">
+    <div style="margin-bottom: 25px;">
+        <button onclick="putarAudio(event)" style="background:#007bff; color:white; border:none; padding:12px 24px; font-size:15px; font-weight:bold; border-radius:30px; cursor:pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.15);">
             🔊 DENGARKAN SUARA
         </button>
     </div>
@@ -47,46 +39,43 @@
         <div id="hasilPeriksa" style="margin-top: 10px; font-weight: bold; font-size: 14px;"></div>
     </div>
 
-    <!-- Tombol Navigasi -->
-    <div style="margin-top: 20px;">
+    <!-- Tombol Navigasi Kembali / Lanjut -->
+    <div style="margin-top: 25px;">
         <button onclick="kataSebelumnya()" style="background:#6c757d; color:white; border:none; padding:12px 20px; font-size:16px; font-weight:bold; border-radius:8px; cursor:pointer; margin-right:10px;">🡨 KEMBALI</button>
         <button onclick="kataBerikutnya()" style="background:#28a745; color:white; border:none; padding:12px 24px; font-size:16px; font-weight:bold; border-radius:8px; cursor:pointer;">LANJUT ➔</button>
     </div>
 
     <script>
-        // ENGINE VERSI KEBAL EROR - AMAN DARI TYPO KARAKTER
-        let kamusBesar = {
-            A: [{e:"Abandon",b:"ebenden",i:"Meninggalkan"},{e:"Absolute",b:"ebsolut",i:"Mutlak"},{e:"Absurd",b:"ebserd",i:"Absurd"},{e:"Accept",b:"eksept",i:"Menerima"},{e:"Achieve",b:"aciv",i:"Mencapai"}],
-            B: [{e:"Baby",b:"bebi",i:"Bayi"},{e:"Background",b:"bekgraund",i:"Latar Belakang"},{e:"Balance",b:"belens",i:"Keseimbangan"},{e:"Beautiful",b:"bjutiful",i:"Cantik"},{e:"Become",b:"bikam",i:"Menjadi"}],
-            C: [{e:"Calculate",b:"kelkuleit",i:"Menghitung"},{e:"Calm",b:"kam",i:"Tenang"},{e:"Capable",b:"keipebl",i:"Mampu"},{e:"Challenge",b:"celenj",i:"Tantangan"},{e:"Change",b:"ceinj",i:"Mengubah"}],
-            D: [{e:"Danger",b:"deinjer",i:"Bahaya"},{e:"Dead",b:"ded",i:"Mati"},{e:"Decade",b:"dekeid",i:"Dekade"},{e:"Deep",b:"dip",i:"Dalam"},{e:"Determine",b:"ditermin",i:"Menentukan"}],
-            E: [{e:"Each",b:"ic",i:"Setiap"},{e:"Early",b:"erli",i:"Awal / Dini"},{e:"Easily",b:"izili",i:"Dengan Mudah"},{e:"Education",b:"edukeisn",i:"Pendidikan"},{e:"Encourage",b:"enkaridj",i:"Menyemangati"}],
-            F: [{e:"Fabric",b:"febrik",i:"Kain"},{e:"Failure",b:"feiljer",i:"Kegagalan"},{e:"Famous",b:"feimes",i:"Terkenal"},{e:"Fast",b:"fast",i:"Cepat"},{e:"Future",b:"fjutser",i:"Masa Depan"}],
-            G: [{e:"Gadget",b:"gejet",i:"Alat kecil"},{e:"Gain",b:"gein",i:"Keuntungan"},{e:"Galaxy",b:"geleksi",i:"Galaksi"},{e:"Genuine",b:"jenuin",i:"Asli"},{e:"Gorgeous",b:"gorjes",i:"Sangat cantik"}],
-            H: [{e:"Habit",b:"hebit",i:"Kebiasaan"},{e:"Healthy",b:"helsi",i:"Sehat"},{e:"History",b:"histori",i:"Sejarah"},{e:"Human",b:"hjumen",i:"Manusia"},{e:"Husband",b:"hazbend",i:"Suami"}],
-            I: [{e:"Idea",b:"aidia",i:"Ide"},{e:"Identify",b:"aidentifai",i:"Mengidentifikasi"},{e:"Imagine",b:"imejin",i:"Membayangkan"},{e:"Important",b:"importen",i:"Penting"},{e:"Improve",b:"impruf",i:"Memperbaiki"}],
-            J: [{e:"Jacket",b:"jeket",i:"Jaket"},{e:"Jealous",b:"jeles",i:"Cemburu"},{e:"Job",b:"job",i:"Pekerjaan"},{e:"Journey",b:"jerni",i:"Perjalanan"}],
-            K: [{e:"Keep",b:"kip",i:"Menyimpan"},{e:"Key",b:"ki",i:"Kunci"},{e:"Keyboard",b:"kibord",i:"Papan ketik"},{e:"Knowledge",b:"nolej",i:"Pengetahuan"}],
-            L: [{e:"Laptop",b:"laptop",i:"Laptop"},{e:"Lasting",b:"lesting",i:"Bertahan lama"},{e:"Library",b:"laibreri",i:"Perpustakaan"},{e:"Lucky",b:"laki",i:"Beruntung"}],
-            M: [{e:"Machine",b:"mesin",i:"Mesin"},{e:"Manage",b:"menedj",i:"Mengelola"},{e:"Market",b:"market",i:"Pasar"},{e:"Memory",b:"memori",i:"Ingatan"}],
-            N: [{e:"Nation",b:"neisn",i:"Bangsa"},{e:"Nature",b:"neitser",i:"Alam"},{e:"Near",b:"niar",i:"Dekat"},{e:"Notice",b:"noutis",i:"Pemberitahuan"}],
-            O: [{e:"Object",b:"objek",i:"Objek"},{e:"Observe",b:"obserf",i:"Mengamati"},{e:"Ocean",b:"ousen",i:"Samudra"},{e:"Opportunity",b:"opertuniti",i:"Kesempatan"}],
-            P: [{e:"Package",b:"pekej",i:"Paket"},{e:"Page",b:"peij",i:"Halaman"},{e:"Paper",b:"peiper",i:"Kertas"},{e:"Patient",b:"peisen",i:"Sabar"},{e:"Product",b:"prodak",i:"Produk"}],
-            Q: [{e:"Quality",b:"kwaliti",i:"Kualitas"},{e:"Quantity",b:"kwantiti",i:"Kuantitas"},{e:"Queen",b:"kwin",i:"Ratu"},{e:"Quick",b:"kwik",i:"Cepat"},{e:"Quiet",b:"kwaiet",i:"Tenang"}],
-            R: [{e:"Radio",b:"reidio",i:"Radio"},{e:"Rain",b:"rein",i:"Hujan"},{e:"Reason",b:"risn",i:"Alasan"},{e:"Receive",b:"risif",i:"Menerima"},{e:"Reduce",b:"ridjus",i:"Mengurangi"}],
-            S: [{e:"Sad",b:"sed",i:"Sedih"},{e:"Safe",b:"seif",i:"Aman"},{e:"Science",b:"saiens",i:"Sains"},{e:"Simple",b:"simpl",i:"Sederhana"},{e:"Success",b:"sakses",i:"Kesuksesan"}],
-            T: [{e:"Table",b:"teibl",i:"Meja"},{e:"Talent",b:"telent",i:"Bakat"},{e:"Technology",b:"teknoloji",i:"Teknologi"},{e:"Today",b:"tudei",i:"Hari Ini"},{e:"Together",b:"tugeder",i:"Bersama"}],
-            U: [{e:"Ugly",b:"agli",i:"Buruk"},{e:"Umbrella",b:"ambrela",i:"Payung"},{e:"Update",b:"apdeit",i:"Pemberitahuan"},{e:"Useful",b:"jusful",i:"Berguna"}],
-            V: [{e:"Vacation",b:"vekeisn",i:"Liburan"},{e:"Valuable",b:"veljuebl",i:"Berharga"},{e:"Value",b:"velju",i:"Nilai"},{e:"Vehicle",b:"vihikl",i:"Kendaraan"},{e:"Vocabulary",b:"vokebjuleri",i:"Kosakata"}],
-            W: [{e:"Wait",b:"weit",i:"Menunggu"},{e:"Walk",b:"wok",i:"Berjalan"},{e:"Watch",b:"woc",i:"Menonton"},{e:"Water",b:"woter",i:"Air"},{e:"Weather",b:"weder",i:"Cuaca"}],
-            X: [{e:"Xerox",b:"ziroks",i:"Menyalin"},{e:"Xylophone",b:"zailofon",i:"Silafo"}],
-            Y: [{e:"Yacht",b:"jot",i:"Kapal pesiar"},{e:"Yard",b:"jard",i:"Halaman"},{e:"Yesterday",b:"yesterdei",i:"Kemarin"},{e:"Young",b:"jang",i:"Muda"}],
-            Z: [{e:"Zebra",b:"zebra",i:"Zebra"},{e:"Zenith",b:"zenis",i:"Titik puncak"},{e:"Zero",b:"ziro",i:"Nol"},{e:"Zipper",b:"ziper",i:"Ritsleting"},{e:"Zucchini",b:"zukini",i:"Labu zucchini"}]
-        };
+        // DAFTAR KOSAKATA HARIAN POPULER (DIAMBIL DARI FILE PDF ANDA)
+        let kumpulanKata = [
+            { inggris: "Book", baca: "buk", indonesia: "Buku" },
+            { inggris: "Table", baca: "teibl", indonesia: "Meja" },
+            { inggris: "Chair", baca: "cer", indonesia: "Kursi" },
+            { inggris: "House", baca: "haus", indonesia: "Rumah" },
+            { inggris: "Water", baca: "woter", indonesia: "Air" },
+            { inggris: "Always", baca: "olweis", indonesia: "Selalu" },
+            { inggris: "Because", baca: "bikoz", indonesia: "Karena" },
+            { inggris: "Before", baca: "bifor", indonesia: "Sebelum" },
+            { inggris: "After", baca: "efter", indonesia: "Setelah" },
+            { inggris: "Family", baca: "femili", indonesia: "Keluarga" },
+            { inggris: "Important", baca: "importen", indonesia: "Penting" },
+            { inggris: "Never", baca: "never", indonesia: "Tidak pernah" },
+            { inggris: "People", baca: "pipl", indonesia: "Orang-orang" },
+            { inggris: "Problem", baca: "problem", indonesia: "Masalah" },
+            { inggris: "Question", baca: "kwescen", indonesia: "Pertanyaan" },
+            { inggris: "Together", baca: "tugeder", indonesia: "Bersama-sama" },
+            { inggris: "Without", baca: "widaot", indonesia: "Tanpa" },
+            { inggris: "Beautiful", baca: "bjutiful", indonesia: "Cantik" },
+            { inggris: "Change", baca: "ceinj", indonesia: "Mengubah / Berubah" },
+            { inggris: "Experience", baca: "ekspiriens", indonesia: "Pengalaman" },
+            { inggris: "Knowledge", baca: "nolej", indonesia: "Pengetahuan" },
+            { inggris: "Language", baca: "lengwij", indonesia: "Bahasa" },
+            { inggris: "Understand", baca: "andersten", indonesia: "Mengerti / Memahami" },
+            { inggris: "Vocabulary", baca: "vokebjuleri", indonesia: "Kosakata" },
+            { inggris: "Challenge", baca: "celenj", indonesia: "Tantangan" }
+        ];
 
-        let hurufAktif = "A";
-        let daftarKata = [...kamusBesar[hurufAktif]];
-        let indeksSekarang = 0;
+        let urutan = 0; 
         let tampilInggris = true;
 
         const kata = document.getElementById("tulisanKata"); 
@@ -94,3 +83,59 @@
         const petunjuk = document.getElementById("petunjuk"); 
         const counter = document.getElementById("counter");
         const kolomKetik = document.getElementById("kolomKetik");
+        const hasilPeriksa = document.getElementById("hasilPeriksa");
+
+        function segar() {
+            if (tampilInggris) {
+                kata.innerText = kumpulanKata[urutan].inggris;
+                caraBaca.innerText = "Cara baca: " + kumpulanKata[urutan].baca;
+                petunjuk.innerText = "(Bahasa Inggris - Ketuk untuk Arti)";
+            } else {
+                kata.innerText = kumpulanKata[urutan].indonesia;
+                caraBaca.innerText = "Arti Kata";
+                petunjuk.innerText = "(Bahasa Indonesia - Ketuk untuk Inggris)";
+            }
+            counter.innerText = `Kata ${urutan + 1} dari ${kumpulanKata.length}`;
+            kolomKetik.value = "";
+            hasilPeriksa.innerText = "";
+            kolomKetik.style.borderColor = "#ccc";
+        }
+
+        function tukarTampilan() { tampilInggris = !tampilInggris; segar(); }
+        function kataBerikutnya() { urutan = (urutan + 1) % kumpulanKata.length; tampilInggris = true; segar(); }
+        function kataSebelumnya() { urutan = (urutan - 1 + kumpulanKata.length) % kumpulanKata.length; tampilInggris = true; segar(); }
+        
+        function putarAudio(event) {
+            event.stopPropagation();
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                let suara = new SpeechSynthesisUtterance(kumpulanKata[urutan].inggris);
+                suara.lang = 'en-US'; suara.rate = 0.8; window.speechSynthesis.speak(suara);
+            }
+        }
+
+        function periksaTulisan() {
+            let jawabanUser = kolomKetik.value.trim().toLowerCase();
+            let jawabanBenar = kumpulanKata[urutan].inggris.toLowerCase();
+            
+            if (jawabanUser === "") {
+                hasilPeriksa.innerText = "⚠️ Harap ketik dulu jawabannya!";
+                hasilPeriksa.style.color = "#ffc107";
+                return;
+            }
+
+            if (jawabanUser === jawabanBenar) {
+                hasilPeriksa.innerText = "✅ Hebat! Ejaan tulisan Anda 100% Benar!";
+                hasilPeriksa.style.color = "#28a745";
+                kolomKetik.style.borderColor = "#28a745";
+            } else {
+                hasilPeriksa.innerText = `❌ Keliru. Penulisan yang benar: "${kumpulanKata[urutan].inggris}"`;
+                hasilPeriksa.style.color = "#dc3545";
+                kolomKetik.style.borderColor = "#dc3545";
+            }
+        }
+
+        segar();
+    </script>
+</body>
+</html>
