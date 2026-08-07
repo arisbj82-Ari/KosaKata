@@ -5,38 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kamus Hafalan Vocab - Ari Studio</title>
 </head>
-<body style="font-family:sans-serif; text-align:center; background:#f4f7f6; padding-top:40px; margin:0;">
+<body style="font-family:sans-serif; text-align:center; background:#f4f7f6; padding-top:20px; margin:0; padding-bottom: 50px;">
 
     <!-- Judul Header -->
-    <div style="background: #28a745; padding: 15px; color: white; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+    <div style="background: #28a745; padding: 15px; color: white; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
         <h1 style="margin: 0; font-size: 22px;">APLIKASI HAFALAN VOCAB ARI</h1>
     </div>
 
     <!-- Indikator Jumlah Kata -->
-    <div id="counter" style="font-size: 16px; color: #666; font-weight: bold; margin-bottom: 15px;">Loading...</div>
+    <div id="counter" style="font-size: 16px; color: #666; font-weight: bold; margin-bottom: 10px;">Loading...</div>
 
     <!-- Kotak Kartu Hafalan Utama -->
-    <div onclick="tukarTampilan()" style="border: 3px solid #28a745; border-radius: 12px; padding: 40px 10px; width: 270px; margin: 20px auto; background: white; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer;">
+    <div onclick="tukarTampilan()" style="border: 3px solid #28a745; border-radius: 12px; padding: 35px 10px; width: 270px; margin: 15px auto; background: white; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer;">
         <div id="tulisanKata" style="font-size: 34px; font-weight: bold; color: #333;">Loading...</div>
         <div id="caraBaca" style="font-size: 16px; color: #6c757d; font-style: italic; margin-top: 5px;">Loading...</div>
         <div id="petunjuk" style="font-size: 13px; color: #888; margin-top: 15px;">(Ketuk kotak untuk melihat arti)</div>
     </div>
 
     <!-- Tombol Putar Suara Audio -->
-    <div style="margin-bottom: 25px;">
-        <button onclick="putarAudio(event)" style="background:#007bff; color:white; border:none; padding:12px 24px; font-size:15px; font-weight:bold; border-radius:30px; cursor:pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.15);">
+    <div style="margin-bottom: 20px;">
+        <button onclick="putarAudio(event)" style="background:#007bff; color:white; border:none; padding:11px 22px; font-size:15px; font-weight:bold; border-radius:30px; cursor:pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.15);">
             🔊 DENGARKAN SUARA
         </button>
     </div>
 
+    <!-- ==================== FITUR BARU: PANEL LATIHAN MENULIS ==================== -->
+    <div style="background: #ffffff; border: 2px solid #28a745; border-radius: 10px; width: 270px; margin: 15px auto; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+        <label style="font-weight: bold; font-size: 14px; color: #333; display: block; margin-bottom: 8px;">✍️ LATIHAN KOREKSI PENULISAN:</label>
+        <input type="text" id="kolomKetik" placeholder="Ketik kata Inggrisnya di sini..." style="width: 90%; padding: 10px; font-size: 16px; border: 2px solid #ccc; border-radius: 6px; text-align: center;">
+        <button onclick="periksaTulisan()" style="background: #28a745; color: white; border: none; padding: 10px 15px; font-size: 14px; font-weight: bold; border-radius: 6px; margin-top: 10px; cursor: pointer; width: 98%;">
+            PERIKSA TULISAN SAYA
+        </button>
+        <div id="hasilPeriksa" style="margin-top: 10px; font-weight: bold; font-size: 14px;"></div>
+    </div>
+
     <!-- Tombol Navigasi Kembali / Lanjut -->
-    <div>
+    <div style="margin-top: 20px;">
         <button onclick="kataSebelumnya()" style="background:#6c757d; color:white; border:none; padding:12px 20px; font-size:16px; font-weight:bold; border-radius:8px; cursor:pointer; margin-right:10px;">🡨 KEMBALI</button>
         <button onclick="kataBerikutnya()" style="background:#28a745; color:white; border:none; padding:12px 24px; font-size:16px; font-weight:bold; border-radius:8px; cursor:pointer;">LANJUT ➔</button>
     </div>
 
     <script>
-        // PANGKALAN DATA KOSAKATA PREMIUM (SANGAT BANYAK & RINGAN)
+        // PANGKALAN DATA KOSAKATA PREMIUM (SANGAT LENGKAP & STABIL)
         let kumpulanKata = [
             { inggris: "Book", baca: "buk", indonesia: "Buku" },
             { inggris: "Table", baca: "teibl", indonesia: "Meja" },
@@ -77,6 +87,8 @@
         const caraBaca = document.getElementById("caraBaca"); 
         const petunjuk = document.getElementById("petunjuk"); 
         const counter = document.getElementById("counter");
+        const kolomKetik = document.getElementById("kolomKetik");
+        const hasilPeriksa = document.getElementById("hasilPeriksa");
 
         function segar() {
             if (tampilInggris) {
@@ -89,6 +101,11 @@
                 petunjuk.innerText = "(Bahasa Indonesia - Ketuk untuk Inggris)";
             }
             counter.innerText = `Kata ${urutan + 1} dari ${kumpulanKata.length}`;
+            
+            // Bersihkan kolom menulis setiap ganti kata
+            kolomKetik.value = "";
+            hasilPeriksa.innerText = "";
+            kolomKetik.style.borderColor = "#ccc";
         }
 
         function tukarTampilan() { tampilInggris = !tampilInggris; segar(); }
@@ -96,9 +113,31 @@
         function kataSebelumnya() { urutan = (urutan - 1 + kumpulanKata.length) % kumpulanKata.length; tampilInggris = true; segar(); }
         
         function putarAudio(event) {
-            event.stopPropagation(); // Biar kotak tidak ikut berbalik pas klik tombol audio
+            event.stopPropagation();
             let suara = new SpeechSynthesisUtterance(kumpulanKata[urutan].inggris);
             suara.lang = 'en-US'; suara.rate = 0.8; window.speechSynthesis.speak(suara);
+        }
+
+        // FUNGSI UTAMA KOREKSI PENULISAN
+        function periksaTulisan() {
+            let jawabanUser = kolomKetik.value.trim().toLowerCase();
+            let jawabanBenar = kumpulanKata[urutan].inggris.toLowerCase();
+            
+            if (jawabanUser === "") {
+                hasilPeriksa.innerText = "⚠️ Harap isi/ketik dulu sebelum memeriksa!";
+                hasilPeriksa.style.color = "#ffc107";
+                return;
+            }
+
+            if (jawabanUser === jawabanBenar) {
+                hasilPeriksa.innerText = "✅ Hebat! Tulisan ejaan Anda 100% Benar!";
+                hasilPeriksa.style.color = "#28a745";
+                kolomKetik.style.borderColor = "#28a745";
+            } else {
+                hasilPeriksa.innerText = `❌ Salah. Penulisan yang benar: "${kumpulanKata[urutan].inggris}"`;
+                hasilPeriksa.style.color = "#dc3545";
+                kolomKetik.style.borderColor = "#dc3545";
+            }
         }
 
         segar();
