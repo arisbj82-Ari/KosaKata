@@ -1,9 +1,17 @@
 {
   "name": "Kamus Ari",
   "short_name": "Kamus Ari",
-  "description": "Aplikasi Hafalan Vocab",
+  "description": "Aplikasi Hafalan Vocab Ari Studio",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#f4f7f6",
-  "theme_color": "#28a745"
+  "theme_color": "#28a745",
+  "icons": [
+    {
+      "src": "https://ibb.co",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
 }
