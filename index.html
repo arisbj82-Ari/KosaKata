@@ -21,12 +21,12 @@
     </div>
 
     <!-- Indikator Jumlah Kata -->
-    <div id="counter" style="font-size: 15px; color: #666; font-weight: bold; margin-bottom: 10px;">Loading...</div>
+    <div id="counter" style="font-size: 15px; color: #666; font-weight: bold; margin-bottom: 10px;">Memuat data...</div>
 
     <!-- Kotak Kartu Hafalan Utama -->
     <div onclick="tukarTampilan()" style="border: 3px solid #28a745; border-radius: 12px; padding: 35px 10px; width: 270px; margin: 15px auto; background: white; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer;">
-        <div id="tulisanKata" style="font-size: 34px; font-weight: bold; color: #333;">Loading...</div>
-        <div id="caraBaca" style="font-size: 16px; color: #6c757d; font-style: italic; margin-top: 5px;">Loading...</div>
+        <div id="tulisanKata" style="font-size: 34px; font-weight: bold; color: #333;">Mulai</div>
+        <div id="caraBaca" style="font-size: 16px; color: #6c757d; font-style: italic; margin-top: 5px;">Klik Lanjut</div>
         <div id="petunjuk" style="font-size: 13px; color: #888; margin-top: 15px;">(Ketuk kotak untuk melihat arti)</div>
     </div>
 
@@ -54,88 +54,43 @@
     </div>
 
     <script>
-        // PANGKALAN DATA RAKSASA SINKRONISASI DARI DOKUMEN PDF ANDA (A SAMPAI Z)
-        const kamusBesar = {
-            A: [
-                { inggris: "Abandon", baca: "ebenden", indonesia: "Meninggalkan" },
-                { inggris: "Absolute", baca: "ebsolut", indonesia: "Mutlak" },
-                { inggris: "Absurd", baca: "ebserd", indonesia: "Konyol / Absurd" },
-                { inggris: "Accept", baca: "eksept", indonesia: "Menerima" },
-                { inggris: "Achieve", baca: "aciv", indonesia: "Mencapai" },
-                { inggris: "Action", baca: "eksen", indonesia: "Tindakan" },
-                { inggris: "Active", baca: "ektif", indonesia: "Aktif" },
-                { inggris: "Anxious", baca: "anksyes", indonesia: "Cemas / Gelisah" }
-            ],
-            B: [
-                { inggris: "Baby", baca: "bebi", indonesia: "Bayi" },
-                { inggris: "Background", baca: "bekgraund", indonesia: "Latar Belakang" },
-                { inggris: "Balance", baca: "belens", indonesia: "Keseimbangan" },
-                { inggris: "Beautiful", baca: "bjutiful", indonesia: "Cantik" },
-                { inggris: "Become", baca: "bikam", indonesia: "Menjadi" },
-                { inggris: "Before", baca: "bifor", indonesia: "Sebelum" },
-                { inggris: "Brave", baca: "breif", indonesia: "Berani" }
-            ],
-            C: [
-                { inggris: "Calculate", baca: "kelkuleit", indonesia: "Menghitung" },
-                { inggris: "Calm", baca: "kam", indonesia: "Tenang" },
-                { inggris: "Capable", baca: "keipebl", indonesia: "Mampu" },
-                { inggris: "Challenge", baca: "celenj", indonesia: "Tantangan" },
-                { inggris: "Change", baca: "ceinj", indonesia: "Mengubah / Berubah" },
-                { inggris: "Choice", baca: "cois", indonesia: "Pilihan" },
-                { inggris: "Company", baca: "kompani", indonesia: "Perusahaan" }
-            ],
-            D: [
-                { inggris: "Danger", baca: "deinjer", indonesia: "Bahaya" },
-                { inggris: "Dead", baca: "ded", indonesia: "Mati" },
-                { inggris: "Decade", baca: "dekeid", indonesia: "Dekade" },
-                { inggris: "Deep", baca: "dip", indonesia: "Dalam" },
-                { inggris: "Determine", baca: "ditermin", indonesia: "Menentukan" },
-                { inggris: "Develop", baca: "divelop", indonesia: "Mengembangkan" },
-                { inggris: "Difficult", baca: "difikalt", indonesia: "Sulit" }
-            ],
-            E: [
-                { inggris: "Each", baca: "ic", indonesia: "Setiap" },
-                { inggris: "Early", baca: "erli", indonesia: "Awal / Dini" },
-                { inggris: "Easily", baca: "izili", indonesia: "Dengan Mudah" },
-                { inggris: "Education", baca: "edukeisn", indonesia: "Pendidikan" },
-                { inggris: "Encourage", baca: "enkaridj", indonesia: "Mendorong / Menyemangati" },
-                { inggris: "Energy", baca: "enerji", indonesia: "Energi" },
-                { inggris: "Experience", baca: "ekspiriens", indonesia: "Pengalaman" }
-            ],
-            F: [
-                { inggris: "Fabric", baca: "febrik", indonesia: "Kain" },
-                { inggris: "Failure", baca: "feiljer", indonesia: "Kegagalan" },
-                { inggris: "Famous", baca: "feimes", indonesia: "Terkenal" },
-                { inggris: "Fast", baca: "fast", indonesia: "Cepat" },
-                { inggris: "Future", baca: "fjutser", indonesia: "Masa Depan" }
-            ],
-            G: [
-                { inggris: "Gadget", baca: "gejet", indonesia: "Alat kecil" },
-                { inggris: "Gain", baca: "gein", indonesia: "Keuntungan" },
-                { inggris: "Galaxy", baca: "geleksi", indonesia: "Galaksi" },
-                { inggris: "Genuine", baca: "jenuin", indonesia: "Asli" },
-                { inggris: "Gorgeous", baca: "gorjes", indonesia: "Sangat cantik / menawan" }
-            ],
-            H: [
-                { inggris: "Habit", baca: "hebit", indonesia: "Kebiasaan" },
-                { inggris: "Healthy", baca: "helsi", indonesia: "Sehat" },
-                { inggris: "History", baca: "histori", indonesia: "Sejarah" },
-                { inggris: "Human", baca: "hjumen", indonesia: "Manusia" },
-                { inggris: "Husband", baca: "hazbend", indonesia: "Suami" }
-            ],
-            I: [
-                { inggris: "Idea", baca: "aidia", indonesia: "Ide" },
-                { inggris: "Identify", baca: "aidentifai", indonesia: "Mengidentifikasi" },
-                { inggris: "Imagine", baca: "imejin", indonesia: "Membayangkan" },
-                { inggris: "Important", baca: "importen", indonesia: "Penting" },
-                { inggris: "Improve", baca: "impruf", indonesia: "Meningkatkan / Memperbaiki" }
-            ],
-            J: [
-                { inggris: "Jacket", baca: "jeket", indonesia: "Jaket" },
-                { inggris: "Jealous", baca: "jeles", indonesia: "Cemburu" },
-                { inggris: "Job", baca: "job", indonesia: "Pekerjaan" },
-                { inggris: "Journey", baca: "jerni", indonesia: "Perjalanan" }
-            ],
-            K: [
-                { inggris: "Keep", baca: "kip", indonesia: "Menyimpan / Menjaga" },
-                { inggris: "Key", baca: "ki", indonesia: "Kunci" },
+        // ENGINE VERSI KEBAL EROR - AMAN DARI TYPO KARAKTER
+        let kamusBesar = {
+            A: [{e:"Abandon",b:"ebenden",i:"Meninggalkan"},{e:"Absolute",b:"ebsolut",i:"Mutlak"},{e:"Absurd",b:"ebserd",i:"Absurd"},{e:"Accept",b:"eksept",i:"Menerima"},{e:"Achieve",b:"aciv",i:"Mencapai"}],
+            B: [{e:"Baby",b:"bebi",i:"Bayi"},{e:"Background",b:"bekgraund",i:"Latar Belakang"},{e:"Balance",b:"belens",i:"Keseimbangan"},{e:"Beautiful",b:"bjutiful",i:"Cantik"},{e:"Become",b:"bikam",i:"Menjadi"}],
+            C: [{e:"Calculate",b:"kelkuleit",i:"Menghitung"},{e:"Calm",b:"kam",i:"Tenang"},{e:"Capable",b:"keipebl",i:"Mampu"},{e:"Challenge",b:"celenj",i:"Tantangan"},{e:"Change",b:"ceinj",i:"Mengubah"}],
+            D: [{e:"Danger",b:"deinjer",i:"Bahaya"},{e:"Dead",b:"ded",i:"Mati"},{e:"Decade",b:"dekeid",i:"Dekade"},{e:"Deep",b:"dip",i:"Dalam"},{e:"Determine",b:"ditermin",i:"Menentukan"}],
+            E: [{e:"Each",b:"ic",i:"Setiap"},{e:"Early",b:"erli",i:"Awal / Dini"},{e:"Easily",b:"izili",i:"Dengan Mudah"},{e:"Education",b:"edukeisn",i:"Pendidikan"},{e:"Encourage",b:"enkaridj",i:"Menyemangati"}],
+            F: [{e:"Fabric",b:"febrik",i:"Kain"},{e:"Failure",b:"feiljer",i:"Kegagalan"},{e:"Famous",b:"feimes",i:"Terkenal"},{e:"Fast",b:"fast",i:"Cepat"},{e:"Future",b:"fjutser",i:"Masa Depan"}],
+            G: [{e:"Gadget",b:"gejet",i:"Alat kecil"},{e:"Gain",b:"gein",i:"Keuntungan"},{e:"Galaxy",b:"geleksi",i:"Galaksi"},{e:"Genuine",b:"jenuin",i:"Asli"},{e:"Gorgeous",b:"gorjes",i:"Sangat cantik"}],
+            H: [{e:"Habit",b:"hebit",i:"Kebiasaan"},{e:"Healthy",b:"helsi",i:"Sehat"},{e:"History",b:"histori",i:"Sejarah"},{e:"Human",b:"hjumen",i:"Manusia"},{e:"Husband",b:"hazbend",i:"Suami"}],
+            I: [{e:"Idea",b:"aidia",i:"Ide"},{e:"Identify",b:"aidentifai",i:"Mengidentifikasi"},{e:"Imagine",b:"imejin",i:"Membayangkan"},{e:"Important",b:"importen",i:"Penting"},{e:"Improve",b:"impruf",i:"Memperbaiki"}],
+            J: [{e:"Jacket",b:"jeket",i:"Jaket"},{e:"Jealous",b:"jeles",i:"Cemburu"},{e:"Job",b:"job",i:"Pekerjaan"},{e:"Journey",b:"jerni",i:"Perjalanan"}],
+            K: [{e:"Keep",b:"kip",i:"Menyimpan"},{e:"Key",b:"ki",i:"Kunci"},{e:"Keyboard",b:"kibord",i:"Papan ketik"},{e:"Knowledge",b:"nolej",i:"Pengetahuan"}],
+            L: [{e:"Laptop",b:"laptop",i:"Laptop"},{e:"Lasting",b:"lesting",i:"Bertahan lama"},{e:"Library",b:"laibreri",i:"Perpustakaan"},{e:"Lucky",b:"laki",i:"Beruntung"}],
+            M: [{e:"Machine",b:"mesin",i:"Mesin"},{e:"Manage",b:"menedj",i:"Mengelola"},{e:"Market",b:"market",i:"Pasar"},{e:"Memory",b:"memori",i:"Ingatan"}],
+            N: [{e:"Nation",b:"neisn",i:"Bangsa"},{e:"Nature",b:"neitser",i:"Alam"},{e:"Near",b:"niar",i:"Dekat"},{e:"Notice",b:"noutis",i:"Pemberitahuan"}],
+            O: [{e:"Object",b:"objek",i:"Objek"},{e:"Observe",b:"obserf",i:"Mengamati"},{e:"Ocean",b:"ousen",i:"Samudra"},{e:"Opportunity",b:"opertuniti",i:"Kesempatan"}],
+            P: [{e:"Package",b:"pekej",i:"Paket"},{e:"Page",b:"peij",i:"Halaman"},{e:"Paper",b:"peiper",i:"Kertas"},{e:"Patient",b:"peisen",i:"Sabar"},{e:"Product",b:"prodak",i:"Produk"}],
+            Q: [{e:"Quality",b:"kwaliti",i:"Kualitas"},{e:"Quantity",b:"kwantiti",i:"Kuantitas"},{e:"Queen",b:"kwin",i:"Ratu"},{e:"Quick",b:"kwik",i:"Cepat"},{e:"Quiet",b:"kwaiet",i:"Tenang"}],
+            R: [{e:"Radio",b:"reidio",i:"Radio"},{e:"Rain",b:"rein",i:"Hujan"},{e:"Reason",b:"risn",i:"Alasan"},{e:"Receive",b:"risif",i:"Menerima"},{e:"Reduce",b:"ridjus",i:"Mengurangi"}],
+            S: [{e:"Sad",b:"sed",i:"Sedih"},{e:"Safe",b:"seif",i:"Aman"},{e:"Science",b:"saiens",i:"Sains"},{e:"Simple",b:"simpl",i:"Sederhana"},{e:"Success",b:"sakses",i:"Kesuksesan"}],
+            T: [{e:"Table",b:"teibl",i:"Meja"},{e:"Talent",b:"telent",i:"Bakat"},{e:"Technology",b:"teknoloji",i:"Teknologi"},{e:"Today",b:"tudei",i:"Hari Ini"},{e:"Together",b:"tugeder",i:"Bersama"}],
+            U: [{e:"Ugly",b:"agli",i:"Buruk"},{e:"Umbrella",b:"ambrela",i:"Payung"},{e:"Update",b:"apdeit",i:"Pemberitahuan"},{e:"Useful",b:"jusful",i:"Berguna"}],
+            V: [{e:"Vacation",b:"vekeisn",i:"Liburan"},{e:"Valuable",b:"veljuebl",i:"Berharga"},{e:"Value",b:"velju",i:"Nilai"},{e:"Vehicle",b:"vihikl",i:"Kendaraan"},{e:"Vocabulary",b:"vokebjuleri",i:"Kosakata"}],
+            W: [{e:"Wait",b:"weit",i:"Menunggu"},{e:"Walk",b:"wok",i:"Berjalan"},{e:"Watch",b:"woc",i:"Menonton"},{e:"Water",b:"woter",i:"Air"},{e:"Weather",b:"weder",i:"Cuaca"}],
+            X: [{e:"Xerox",b:"ziroks",i:"Menyalin"},{e:"Xylophone",b:"zailofon",i:"Silafo"}],
+            Y: [{e:"Yacht",b:"jot",i:"Kapal pesiar"},{e:"Yard",b:"jard",i:"Halaman"},{e:"Yesterday",b:"yesterdei",i:"Kemarin"},{e:"Young",b:"jang",i:"Muda"}],
+            Z: [{e:"Zebra",b:"zebra",i:"Zebra"},{e:"Zenith",b:"zenis",i:"Titik puncak"},{e:"Zero",b:"ziro",i:"Nol"},{e:"Zipper",b:"ziper",i:"Ritsleting"},{e:"Zucchini",b:"zukini",i:"Labu zucchini"}]
+        };
+
+        let hurufAktif = "A";
+        let daftarKata = [...kamusBesar[hurufAktif]];
+        let indeksSekarang = 0;
+        let tampilInggris = true;
+
+        const kata = document.getElementById("tulisanKata"); 
+        const caraBaca = document.getElementById("caraBaca"); 
+        const petunjuk = document.getElementById("petunjuk"); 
+        const counter = document.getElementById("counter");
+        const kolomKetik = document.getElementById("kolomKetik");
