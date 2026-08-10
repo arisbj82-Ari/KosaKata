@@ -36,14 +36,10 @@
         const kata = document.getElementById("tulisanKata"); const caraBaca = document.getElementById("caraBaca"); 
         const petunjuk = document.getElementById("petunjuk"); const counter = document.getElementById("counter");
         const kolomKetik = document.getElementById("kolomKetik"); const hasilPeriksa = document.getElementById("hasilPeriksa");
-        // MEMANGGIL DATA 70 WORD DARI PENYIMPANAN CLOUD GITHUB STORAGE YANG AMAN & BERSIH
+        // MEMANGGIL DATA CLOUD UTUH DARI REPOSITORI GITHUB DATA JALUR AMAN
         fetch('https://githubusercontent.com')
             .then(r => r.json()).then(data => { kumpulanKata = data; segar(); })
-            .catch(e => {
-                // Jalankan data cadangan darurat jika jaringan luar terputus
-                kumpulanKata = [{e:"Father",c:"Father",b:"fader",i:"Ayah"},{e:"Mother",c:"Mother",b:"mader",i:"Ibu"},{e:"Become - Became - Become",c:"Become",b:"bikam-bikeim-bikam",i:"Menjadi"},{e:"Begin - Began - Begun",c:"Begin",b:"bigin-bigen-bigan",i:"Memulai"},{e:"Break - Broke - Broken",c:"Break",b:"breik-brouk-brouken",i:"Mematahkan"},{e:"Bring - Brought - Brought",c:"Bring",b:"brin-brot-brot",i:"Membawa"},{e:"Build - Built - Built",c:"Build",b:"bild-bilt-bilt",i:"Membangun"}];
-                segar();
-            });
+            .catch(e => { kata.innerText = "Koneksi Bermasalah"; caraBaca.innerText = "Coba Muat Ulang Halaman"; });
         function segar() {
             if (!kumpulanKata || kumpulanKata.length === 0) return; let item = kumpulanKata[urutan];
             if (tampilInggris) { kata.innerText = item.e; caraBaca.innerText = "Pelafalan: " + item.b; petunjuk.innerText = "(Ketuk kotak untuk melihat arti)"; } 
@@ -64,6 +60,7 @@
             if (jawabanUser === jawabanBenar) { hasilPeriksa.innerText = "✅ Hebat! Ejaan tulisan Anda 100% Benar!"; hasilPeriksa.style.color = "#28a745"; kolomKetik.style.borderColor = "#28a745"; } 
             else { hasilPeriksa.innerText = `❌ Keliru. Penulisan yang benar: "${kumpulanKata[urutan].c}"`; hasilPeriksa.style.color = "#dc3545"; kolomKetik.style.borderColor = "#dc3545"; }
         }
+        segar();
         if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('index.html'); }); }
     </script>
 </body>
