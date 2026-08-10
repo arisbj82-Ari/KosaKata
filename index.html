@@ -8,64 +8,44 @@
     <meta name="theme-color" content="#28a745">
 </head>
 <body style="font-family:sans-serif; text-align:center; background:#f4f7f6; padding-top:25px; margin:0; padding-bottom: 50px;">
-
-    <!-- Judul Header -->
     <div style="background: #28a745; padding: 15px; color: white; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
         <h1 style="margin: 0; font-size: 22px;">KAMUS VOCAB & IRREGULAR VERBS</h1>
         <h2 style="margin: 5px 0 0 0; font-size: 14px; font-weight: normal; opacity: 0.9;">Ari Studio - Edisi Komplit Cloud 70 Kata</h2>
     </div>
-
-    <!-- Indikator Jumlah Kata -->
     <div id="counter" style="font-size: 16px; color: #666; font-weight: bold; margin-bottom: 15px;">Memuat data...</div>
-
-    <!-- Kotak Kartu Hafalan Utama -->
     <div onclick="tukarTampilan()" style="border: 3px solid #28a745; border-radius: 12px; padding: 40px 10px; width: 280px; margin: 20px auto; background: white; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer;">
         <div id="tulisanKata" style="font-size: 26px; font-weight: bold; color: #333;">Memuat...</div>
         <div id="caraBaca" style="font-size: 15px; color: #6c757d; font-style: italic; margin-top: 8px;">Memuat...</div>
         <div id="petunjuk" style="font-size: 13px; color: #888; margin-top: 15px;">(Ketuk kotak untuk melihat arti)</div>
     </div>
-
-    <!-- Tombol Putar Suara Audio -->
     <div style="margin-bottom: 20px;">
         <button onclick="putarAudio(event)" style="background:#007bff; color:white; border:none; padding:12px 24px; font-size:15px; font-weight:bold; border-radius:30px; cursor:pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.15);">🔊 DENGARKAN SUARA (AUDIO)</button>
     </div>
-
-    <!-- Panel Latihan Koreksi Penulisan -->
     <div style="background: #ffffff; border: 2px solid #28a745; border-radius: 10px; width: 280px; margin: 15px auto; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
         <label style="font-weight: bold; font-size: 13px; color: #444; display: block; margin-bottom: 8px;">✍️ LATIHAN KOREKSI PENULISAN (Ejaan Utama):</label>
         <input type="text" id="kolomKetik" placeholder="Ketik ejaan Inggris utama di sini..." style="width: 90%; padding: 10px; font-size: 16px; border: 2px solid #ccc; border-radius: 6px; text-align: center;">
         <button onclick="periksaTulisan()" style="background: #28a745; color: white; border: none; padding: 10px 15px; font-size: 14px; font-weight: bold; border-radius: 6px; margin-top: 10px; cursor: pointer; width: 98%;">PERIKSA TULISAN SAYA</button>
         <div id="hasilPeriksa" style="margin-top: 10px; font-weight: bold; font-size: 14px;"></div>
     </div>
-
-    <!-- Tombol Navigasi -->
     <div style="margin-top: 25px;">
         <button onclick="kataSebelumnya()" style="background:#6c757d; color:white; border:none; padding:12px 20px; font-size:16px; font-weight:bold; border-radius:8px; cursor:pointer; margin-right:10px;">🡨 KEMBALI</button>
         <button onclick="kataBerikutnya()" style="background:#28a745; color:white; border:none; padding:12px 24px; font-size:16px; font-weight:bold; border-radius:8px; cursor:pointer;">LANJUT ➔</button>
     </div>
-
     <script>
-        // MEMANGGIL DATA 70 KATA SECARA AMAN DARI SERVER CLOUD LUAR (KEBAL POTONG OBROLAN AI)
-        let kumpulanKata = [];
-        let urutan = 0; let tampilInggris = true;
+        let kumpulanKata = []; let urutan = 0; let tampilInggris = true;
         const kata = document.getElementById("tulisanKata"); const caraBaca = document.getElementById("caraBaca"); 
         const petunjuk = document.getElementById("petunjuk"); const counter = document.getElementById("counter");
         const kolomKetik = document.getElementById("kolomKetik"); const hasilPeriksa = document.getElementById("hasilPeriksa");
-
-        fetch('https://jsonserve.com')
-            .then(response => response.json())
-            .then(data => {
-                kumpulanKata = data;
+        // MEMANGGIL DATA 70 WORD DARI PENYIMPANAN CLOUD GITHUB STORAGE YANG AMAN & BERSIH
+        fetch('https://githubusercontent.com')
+            .then(r => r.json()).then(data => { kumpulanKata = data; segar(); })
+            .catch(e => {
+                // Jalankan data cadangan darurat jika jaringan luar terputus
+                kumpulanKata = [{e:"Father",c:"Father",b:"fader",i:"Ayah"},{e:"Mother",c:"Mother",b:"mader",i:"Ibu"},{e:"Become - Became - Become",c:"Become",b:"bikam-bikeim-bikam",i:"Menjadi"},{e:"Begin - Began - Begun",c:"Begin",b:"bigin-bigen-bigan",i:"Memulai"},{e:"Break - Broke - Broken",c:"Break",b:"breik-brouk-brouken",i:"Mematahkan"},{e:"Bring - Brought - Brought",c:"Bring",b:"brin-brot-brot",i:"Membawa"},{e:"Build - Built - Built",c:"Build",b:"bild-bilt-bilt",i:"Membangun"}];
                 segar();
-            })
-            .catch(error => {
-                kata.innerText = "Eror Server";
-                caraBaca.innerText = "Gagal memuat awalan cloud";
             });
-
         function segar() {
-            if (!kumpulanKata || kumpulanKata.length === 0) return;
-            let item = kumpulanKata[urutan];
+            if (!kumpulanKata || kumpulanKata.length === 0) return; let item = kumpulanKata[urutan];
             if (tampilInggris) { kata.innerText = item.e; caraBaca.innerText = "Pelafalan: " + item.b; petunjuk.innerText = "(Ketuk kotak untuk melihat arti)"; } 
             else { kata.innerText = item.i; caraBaca.innerText = "Arti Kosakata / Kata Kerja"; petunjuk.innerText = "(Ketuk kotak untuk melihat kata Inggris)"; }
             counter.innerText = `Kata ${urutan + 1} dari ${kumpulanKata.length}`;
